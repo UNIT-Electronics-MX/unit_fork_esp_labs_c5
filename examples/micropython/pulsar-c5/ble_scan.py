@@ -1,4 +1,4 @@
-"""Pulsar C5: escanea anuncios Bluetooth LE durante diez segundos."""
+"""Pulsar C5: scan Bluetooth LE advertisements for ten seconds."""
 
 import bluetooth
 from time import sleep_ms
@@ -20,7 +20,7 @@ def name_from_advertisement(data):
         if field_type in (0x08, 0x09):
             return bytes(data[index + 2:index + 1 + length]).decode("utf-8", "ignore")
         index += length + 1
-    return "sin nombre"
+    return "unnamed"
 
 
 def on_ble_event(event, data):
@@ -29,11 +29,11 @@ def on_ble_event(event, data):
         mac = ":".join("{:02X}".format(byte) for byte in bytes(address))
         print("{}  {} dBm  {}".format(mac, rssi, name_from_advertisement(payload)))
     elif event == IRQ_SCAN_DONE:
-        print("Escaneo terminado")
+        print("Scan complete")
 
 
 ble.irq(on_ble_event)
-print("Buscando dispositivos BLE...")
+print("Scanning for BLE devices...")
 ble.gap_scan(10_000, 30_000, 30_000, True)
 sleep_ms(11_000)
 ble.gap_scan(None)

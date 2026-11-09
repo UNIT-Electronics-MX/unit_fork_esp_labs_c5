@@ -1,42 +1,40 @@
-# Ejemplos MicroPython para UNIT Pulsar ESP32-C5
+# MicroPython examples for UNIT Pulsar ESP32-C5
 
-Estos archivos son versiones editables de los temas MicroPython de la guía
-Pulsar C6: GPIO, ADC, I²C, NeoPixel, primer circuito con LED externo, OLED, SPI/microSD, Wi-Fi y Bluetooth LE.
-Los pines se adaptaron a la Pulsar C5 V1.2.3 y coinciden con los ejemplos
-Arduino C5 de `unit_fork_esp_c5_labs_web/sketches/pulsar-c5/`.
+These editable scripts adapt MicroPython topics from the Pulsar C6 guide: GPIO,
+ADC, I²C, NeoPixel, an external LED circuit, OLED, SPI/microSD, Wi-Fi, and
+Bluetooth LE. Pin assignments target Pulsar C5 V1.2.3 and match the C5 Arduino
+examples in `unit_fork_esp_c5_labs_web/sketches/pulsar-c5/`.
 
-La [versión oficial de MicroPython para ESP32-C5](https://micropython.org/download/ESP32_GENERIC_C5/)
-es necesaria antes de ejecutar estos scripts. Su archivo `.bin` completo se
-graba en **`0x2000`**, según las instrucciones de la página de descarga. Un
-archivo `.py` se copia al sistema de archivos de MicroPython o se ejecuta en
-su REPL; no se graba como imagen de firmware.
+Install the [ESP32-C5 MicroPython firmware](https://micropython.org/download/ESP32_GENERIC_C5/)
+before running these scripts. Flash the complete `.bin` image at **`0x2000`**,
+as specified on the download page. A `.py` file is a script: run it through the
+REPL or save it to the MicroPython filesystem. Do not flash it as firmware.
 
-Abre un archivo en el editor de la página, cambia los parámetros y conecta la
-consola serie. Puedes ejecutarlo por el REPL, detenerlo, guardarlo en la placa
-o descargarlo. También puedes abrir tu propio `.py`. Para que arranque
-automáticamente, guárdalo como `main.py` en la placa. Detén un programa con
-`Ctrl+C`.
+Open an example in the browser editor, change its parameters, and connect the
+serial console. You can run or stop the script, save it to the board, or download
+it. You can also open your own `.py` file. Save a script as `main.py` on the board
+to run it at startup. Use `Ctrl+C` to stop a running script.
 
-| Archivo | Tema de la guía C6 | Adaptación C5 |
+| File | C6 guide topic | C5 adaptation |
 | --- | --- | --- |
-| `gpio.py` | GPIO | LED GPIO27 y BOOT GPIO28 |
+| `gpio.py` | GPIO | LED on GPIO27; BOOT button on GPIO28 |
 | `adc.py` | ADC | A2 / GPIO4 |
-| `i2c_scan.py` | I²C | bus de sensores GPIO2/3 |
-| `rgb_led.py` | NeoPixel | WS2812 GPIO0 (ver nota) |
-| `external_led.py` | primer circuito | LED externo en GPIO9 (D4) con PWM |
-| `oled.py` | I²C / OLED | QWIIC GPIO1/6 |
+| `i2c_scan.py` | I²C | Onboard sensor bus on GPIO2/3 |
+| `rgb_led.py` | NeoPixel | WS2812 on GPIO0 (see note below) |
+| `external_led.py` | First circuit | External LED on GPIO9 (D4) with PWM |
+| `oled.py` | I²C / OLED | QWIIC on GPIO1/6 |
 | `microsd.py` | SPI / SD | SCK27, MOSI7, MISO26, CS23 |
-| `wifi.py` | comunicación / Wi-Fi | credenciales editables |
-| `ble_scan.py` | comunicación / Bluetooth | escaneo BLE |
+| `wifi.py` | Communication / Wi-Fi | Editable network credentials |
+| `ble_scan.py` | Communication / Bluetooth | BLE advertisement scan |
 
-`oled.py` necesita `ssd1306.py` y `microsd.py` necesita `sdcard.py` en la placa.
-Las librerías están enlazadas en la [guía C6](https://github.com/UNIT-Electronics-MX/unit_devlab_esp32_examples/tree/main/docs/pulsar-c6-getting-started).
-La lectura ADC usa 11 dB de atenuación; cerca de 3.3 V puede saturarse y la
-medida en milivoltios es aproximada. Nunca excedas 3.3 V en A2.
+`oled.py` requires `ssd1306.py`, and `microsd.py` requires `sdcard.py`, on the
+board. The libraries are linked from the [C6 guide](https://github.com/UNIT-Electronics-MX/unit_devlab_esp32_examples/tree/main/docs/pulsar-c6-getting-started).
+The ADC example uses 11 dB attenuation. Its millivolt reading is approximate
+and may saturate near 3.3 V. Never exceed 3.3 V on A2.
 
-El esquema C5 conecta el WS2812 a GPIO0, mientras que una ilustración de UNIT
-lo marca GPIO8. Si `rgb_led.py` no ilumina el LED, prueba `RGB_PIN = 8` y
-verifica qué revisión de placa tienes.
+The C5 schematic connects the WS2812 to GPIO0, while one UNIT illustration
+labels it GPIO8. If `rgb_led.py` does not light the LED, try `RGB_PIN = 8` and
+check your board revision.
 
-Estos ejemplos se verificaron sintácticamente. Las funciones de hardware
-requieren una prueba con la Pulsar C5 y sus periféricos.
+These examples passed a Python syntax check. Their hardware behavior still
+needs testing on a Pulsar C5 and its peripherals.

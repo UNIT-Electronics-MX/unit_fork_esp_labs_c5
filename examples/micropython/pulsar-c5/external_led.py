@@ -1,4 +1,4 @@
-"""Pulsar C5: LED externo con brillo PWM en GPIO9 (D4)."""
+"""Pulsar C5: control external LED brightness with PWM on GPIO9 (D4)."""
 
 from machine import Pin, PWM
 from time import sleep_ms

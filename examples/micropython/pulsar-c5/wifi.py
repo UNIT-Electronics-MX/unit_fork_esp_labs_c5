@@ -1,14 +1,14 @@
-"""Pulsar C5: conectate a una red Wi-Fi e imprime la direccion IP."""
+"""Pulsar C5: connect to Wi-Fi and print the IP address."""
 
 import network
 from time import sleep_ms, ticks_diff, ticks_ms
 
 
-SSID = "TU_RED"
-PASSWORD = "TU_CLAVE"
+SSID = "YOUR_SSID"
+PASSWORD = "YOUR_PASSWORD"
 
-if SSID == "TU_RED":
-    raise ValueError("Edita SSID y PASSWORD antes de ejecutar")
+if SSID == "YOUR_SSID":
+    raise ValueError("Edit SSID and PASSWORD before running")
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
@@ -19,6 +19,6 @@ while not wlan.isconnected() and ticks_diff(ticks_ms(), started) < 15_000:
     sleep_ms(250)
 
 if not wlan.isconnected():
-    raise OSError("No se pudo conectar a Wi-Fi")
+    raise OSError("Could not connect to Wi-Fi")
 
-print("Conectado. IP:", wlan.ifconfig()[0])
+print("Connected. IP:", wlan.ifconfig()[0])

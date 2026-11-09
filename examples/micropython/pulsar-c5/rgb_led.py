@@ -1,11 +1,11 @@
-"""Pulsar C5: rueda de colores en el WS2812 integrado."""
+"""Pulsar C5: cycle colors on the onboard WS2812."""
 
 from machine import Pin
 from neopixel import NeoPixel
 from time import sleep_ms
 
 
-# El esquema indica GPIO0; algunos graficos de UNIT indican GPIO8.
+# The schematic shows GPIO0; some UNIT illustrations show GPIO8.
 RGB_PIN = 0
 BRIGHTNESS = 40
 pixel = NeoPixel(Pin(RGB_PIN, Pin.OUT), 1)
