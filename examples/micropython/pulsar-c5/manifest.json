@@ -1,0 +1,119 @@
+{
+  "board": "UNIT Pulsar ESP32-C5",
+  "examples": [
+    {
+      "id": "gpio",
+      "title": "GPIO · LED y BOOT",
+      "titleEn": "GPIO · LED and BOOT",
+      "file": "gpio.py",
+      "description": "Parpadeo del LED integrado con el botón BOOT.",
+      "descriptionEn": "Blink the built-in LED with the BOOT button.",
+      "requires": [],
+      "requiresEn": []
+    },
+    {
+      "id": "adc",
+      "title": "ADC · entrada analógica",
+      "titleEn": "ADC · analog input",
+      "file": "adc.py",
+      "description": "Lectura de un potenciómetro en A2.",
+      "descriptionEn": "Read a potentiometer on A2.",
+      "requires": [
+        "Potenciómetro en A2 (GPIO4)"
+      ],
+      "requiresEn": [
+        "Potentiometer on A2 (GPIO4)"
+      ]
+    },
+    {
+      "id": "i2c-scan",
+      "title": "I²C · sensores integrados",
+      "titleEn": "I²C · built-in sensors",
+      "file": "i2c_scan.py",
+      "description": "Escaneo del bus de sensores de la placa.",
+      "descriptionEn": "Scan the board's sensor bus.",
+      "requires": [],
+      "requiresEn": []
+    },
+    {
+      "id": "neopixel",
+      "title": "NeoPixel · LED RGB",
+      "titleEn": "NeoPixel · RGB LED",
+      "file": "rgb_led.py",
+      "description": "Rueda de colores en el WS2812 integrado.",
+      "descriptionEn": "Colour wheel on the built-in WS2812.",
+      "requires": [],
+      "requiresEn": []
+    },
+    {
+      "id": "external-led",
+      "title": "Primer circuito · LED externo",
+      "titleEn": "First circuit · external LED",
+      "file": "external_led.py",
+      "description": "LED con brillo PWM en GPIO9 (D4).",
+      "descriptionEn": "PWM brightness on an LED wired to GPIO9 (D4).",
+      "requires": [
+        "LED y resistencia de 220–330 Ω entre GPIO9 y GND"
+      ],
+      "requiresEn": [
+        "LED and 220–330 Ω resistor between GPIO9 and GND"
+      ]
+    },
+    {
+      "id": "oled",
+      "title": "I²C · pantalla OLED",
+      "titleEn": "I²C · OLED display",
+      "file": "oled.py",
+      "description": "Texto en una SSD1306 conectada a QWIIC.",
+      "descriptionEn": "Text on an SSD1306 display connected to QWIIC.",
+      "requires": [
+        "Pantalla SSD1306 en QWIIC",
+        "ssd1306.py en la placa"
+      ],
+      "requiresEn": [
+        "SSD1306 display on QWIIC",
+        "ssd1306.py on the board"
+      ]
+    },
+    {
+      "id": "microsd",
+      "title": "SPI · tarjeta microSD",
+      "titleEn": "SPI · microSD card",
+      "file": "microsd.py",
+      "description": "Montaje, escritura y lectura de la microSD integrada.",
+      "descriptionEn": "Mount, write, and read the built-in microSD card.",
+      "requires": [
+        "Tarjeta microSD FAT32",
+        "sdcard.py en la placa"
+      ],
+      "requiresEn": [
+        "FAT32 microSD card",
+        "sdcard.py on the board"
+      ]
+    },
+    {
+      "id": "wifi",
+      "title": "Wi-Fi · conexión",
+      "titleEn": "Wi-Fi · connect",
+      "file": "wifi.py",
+      "description": "Conexión a una red e impresión de la dirección IP.",
+      "descriptionEn": "Connect to a network and print the IP address.",
+      "requires": [
+        "Editar SSID y PASSWORD"
+      ],
+      "requiresEn": [
+        "Edit SSID and PASSWORD"
+      ]
+    },
+    {
+      "id": "ble-scan",
+      "title": "Bluetooth LE · escaneo",
+      "titleEn": "Bluetooth LE · scan",
+      "file": "ble_scan.py",
+      "description": "Lista anuncios BLE cercanos durante diez segundos.",
+      "descriptionEn": "List nearby BLE advertisements for ten seconds.",
+      "requires": [],
+      "requiresEn": []
+    }
+  ]
+}

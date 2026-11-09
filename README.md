@@ -52,6 +52,13 @@ Libraries and compiled objects are shared across labs in the root `.pio/` (`libd
 2. Code shared by two labs goes into `kit/lib/<name>/src` with a `library.json`. A lab never includes another lab's files.
 3. Add the lab to `labs.json` and give it a `README.md`.
 
+## MicroPython para Pulsar C5
+
+Los [ejemplos editables de MicroPython](examples/micropython/pulsar-c5/README.md)
+se adaptaron de los temas de la guía Pulsar C6 a los pines de la Pulsar C5.
+El sitio `unit_fork_esp_c5_labs_web` lee su `manifest.json` y los archivos `.py`
+durante la compilación para mostrarlos en el editor de `#/flash`.
+
 ## Labs
 
 | Track | Lab | Environments | Kit | App |
