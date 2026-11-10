@@ -4,7 +4,7 @@ from machine import I2C, Pin
 from ssd1306 import SSD1306_I2C
 
 
-# Copy ssd1306.py to the board before running this example.
+# Install libraries/ssd1306.py as ssd1306.py on the board before running.
 QWIIC_SDA = 1
 QWIIC_SCL = 6
 WIDTH = 128
@@ -19,3 +19,4 @@ display.fill(0)
 display.text("Pulsar C5", 0, 0)
 display.text("MicroPython", 0, 16)
 display.show()
+print("SSD1306 OLED ready at 0x3C")

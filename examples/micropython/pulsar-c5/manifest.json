@@ -12,6 +12,16 @@
       "requiresEn": []
     },
     {
+      "id": "rgb-mixer",
+      "title": "RGB integrado · mezclador",
+      "titleEn": "On-board RGB · mixer",
+      "file": "rgb_mixer.py",
+      "description": "Mezcla colores y cambia el brillo desde la consola serial.",
+      "descriptionEn": "Mix colours and change brightness from the serial console.",
+      "requires": [],
+      "requiresEn": []
+    },
+    {
       "id": "adc",
       "title": "ADC · entrada analógica",
       "titleEn": "ADC · analog input",
@@ -76,6 +86,22 @@
       ]
     },
     {
+      "id": "oled-light",
+      "title": "OLED y luz · gráfica",
+      "titleEn": "OLED and light · graph",
+      "file": "oled_light.py",
+      "description": "Grafica la luz del TEMT6000 DDP en una SSD1306 por QWIIC.",
+      "descriptionEn": "Graph the TEMT6000 DDP light reading on an SSD1306 over QWIIC.",
+      "requires": [
+        "Pantalla SSD1306 y TEMT6000 DDP en QWIIC",
+        "ssd1306.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "SSD1306 display and TEMT6000 DDP on QWIIC",
+        "ssd1306.py saved on the board"
+      ]
+    },
+    {
       "id": "microsd",
       "title": "SPI · tarjeta microSD",
       "titleEn": "SPI · microSD card",
@@ -84,11 +110,25 @@
       "descriptionEn": "Mount, write, and read the built-in microSD card.",
       "requires": [
         "Tarjeta microSD FAT32",
-        "sdcard.py en la placa"
+        "sdcard.py guardado en la placa"
       ],
       "requiresEn": [
         "FAT32 microSD card",
-        "sdcard.py on the board"
+        "sdcard.py saved on the board"
+      ]
+    },
+    {
+      "id": "uart-loopback",
+      "title": "UART · prueba de retorno",
+      "titleEn": "UART · loopback",
+      "file": "uart_loopback.py",
+      "description": "Envía texto por UART1 y léelo de vuelta con un puente entre TX0 y RX0.",
+      "descriptionEn": "Send text over UART1 and read it back with a jumper between TX0 and RX0.",
+      "requires": [
+        "Un puente entre TX0 (GPIO11) y RX0 (GPIO12)"
+      ],
+      "requiresEn": [
+        "A jumper between TX0 (GPIO11) and RX0 (GPIO12)"
       ]
     },
     {
@@ -114,6 +154,59 @@
       "descriptionEn": "List nearby BLE advertisements for ten seconds.",
       "requires": [],
       "requiresEn": []
+    },
+    {
+      "id": "wifi-thingspeak",
+      "title": "Wi-Fi · ThingSpeak con DHT11",
+      "titleEn": "Wi-Fi · ThingSpeak with DHT11",
+      "file": "thingspeak_dht.py",
+      "description": "Se conecta a 2,4 o 5 GHz y publica temperatura y humedad cada 20 s.",
+      "descriptionEn": "Joins 2.4 or 5 GHz Wi-Fi and posts temperature and humidity every 20 s.",
+      "requires": [
+        "DHT11 en A2 (GPIO4)",
+        "Editar WIFI_SSID, WIFI_PASS y THINGSPEAK_API_KEY"
+      ],
+      "requiresEn": [
+        "DHT11 on A2 (GPIO4)",
+        "Edit WIFI_SSID, WIFI_PASS and THINGSPEAK_API_KEY"
+      ]
+    },
+    {
+      "id": "ble-touch",
+      "title": "Bluetooth LE · toque",
+      "titleEn": "Bluetooth LE · touch",
+      "file": "ble_touch.py",
+      "description": "Periférico BLE que notifica touched o released desde un TTP223B.",
+      "descriptionEn": "A BLE peripheral that notifies touched or released from a TTP223B.",
+      "requires": [
+        "TTP223B en A3 (GPIO5)",
+        "nRF Connect o LightBlue en el teléfono"
+      ],
+      "requiresEn": [
+        "TTP223B on A3 (GPIO5)",
+        "nRF Connect or LightBlue on the phone"
+      ]
+    }
+  ],
+  "libraries": [
+    {
+      "id": "sdcard",
+      "file": "sdcard.py",
+      "source": "https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/sdcard/sdcard.py",
+      "license": "MIT",
+      "examples": [
+        "microsd"
+      ]
+    },
+    {
+      "id": "ssd1306",
+      "file": "ssd1306.py",
+      "source": "https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/ssd1306/ssd1306.py",
+      "license": "MIT",
+      "examples": [
+        "oled",
+        "oled-light"
+      ]
     }
   ]
 }
