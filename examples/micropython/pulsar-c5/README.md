@@ -23,8 +23,11 @@ to run it at startup. Use `Ctrl+C` to stop a running script.
 | `i2c_scan.py` | I²C / P4 | Onboard sensor bus on GPIO2/3 |
 | `rgb_led.py` | NeoPixel | WS2812 on GPIO0 (see note below) |
 | `external_led.py` | First circuit | External LED on GPIO9 (D4) with PWM |
+| `bmi270_id.py` | IMU on QWIIC / D1 | BMI270 on QWIIC GPIO1/6 (0x68 or 0x69) |
+| `tmp235_temperature.py` | Analog temperature / D3 | TMP235 VOUT on A2 / GPIO4 |
 | `oled.py` | Standalone OLED / O1 | SSD1306 only on QWIIC GPIO1/6 |
 | `oled_light.py` | OLED light graph / D2 | SSD1306 and TEMT6000 DDP on QWIIC GPIO1/6 |
+| `st7735_display.py` | TFT display / SPI | 0.96-inch ST7735 80x160: CS A1/GPIO1, DC A2/GPIO4, RES A3/GPIO5, MOSI D11/GPIO7, SCK D13/GPIO27 |
 | `microsd.py` | SPI / SD / P5 | SCK27, MOSI7, MISO26, CS23 |
 | `uart_loopback.py` | UART / P6 | TX0/GPIO11 bridged to RX0/GPIO12 |
 | `wifi.py` | Communication / Wi-Fi | Editable network credentials |
@@ -45,6 +48,13 @@ The workspace includes an **Install sdcard.py** action. Both drivers are MIT
 licensed; the license is in `libraries/LICENSE`. Upstream sources:
 [UNIT SSD1306 driver](https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/ssd1306/ssd1306.py)
 and [UNIT SD driver](https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/sdcard/sdcard.py).
+
+`st7735_display.py` uses `libraries/st7735.py`, saved on the board as
+`st7735.py`. The ST7735 TFT shares the SPI bus with the microSD card, so the
+example holds the SD chip select (GPIO23) high. The TFT's SDA and SCL labels
+are SPI data and clock, not I²C. The driver file does not state a license;
+its source is [boochow's MicroPython-ST7735](https://github.com/boochow/MicroPython-ST7735),
+which is based on GuyCarver's ST7735 driver.
 
 The five onboard sensors use the sensor bus on GPIO2/GPIO3. Save each driver
 from `libraries/` to the board under the same name before running its example:

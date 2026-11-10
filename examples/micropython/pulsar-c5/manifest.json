@@ -124,6 +124,34 @@
       ]
     },
     {
+      "id": "imu-bmi270",
+      "title": "QWIIC · IMU BMI270",
+      "titleEn": "QWIIC · BMI270 IMU",
+      "file": "bmi270_id.py",
+      "description": "Escanea el bus QWIIC y lee el ID de chip del BMI270.",
+      "descriptionEn": "Scan the QWIIC bus and read the BMI270 chip ID.",
+      "requires": [
+        "BMI270 en QWIIC, con pull-ups en su placa"
+      ],
+      "requiresEn": [
+        "BMI270 on QWIIC, with pull-ups on its board"
+      ]
+    },
+    {
+      "id": "tmp235-temperature",
+      "title": "ADC · temperatura TMP235",
+      "titleEn": "ADC · TMP235 temperature",
+      "file": "tmp235_temperature.py",
+      "description": "Convierte los milivoltios del TMP235 a °C y los suaviza con un filtro.",
+      "descriptionEn": "Convert the TMP235's millivolts to °C and smooth them with a filter.",
+      "requires": [
+        "TMP235 en A2 (GPIO4)"
+      ],
+      "requiresEn": [
+        "TMP235 on A2 (GPIO4)"
+      ]
+    },
+    {
       "id": "oled",
       "title": "I²C · pantalla OLED",
       "titleEn": "I²C · OLED display",
@@ -153,6 +181,22 @@
       "requiresEn": [
         "SSD1306 display and TEMT6000 DDP on QWIIC",
         "ssd1306.py saved on the board"
+      ]
+    },
+    {
+      "id": "st7735-display",
+      "title": "SPI · pantalla TFT ST7735",
+      "titleEn": "SPI · ST7735 TFT display",
+      "file": "st7735_display.py",
+      "description": "Dibuja texto y figuras en una pantalla TFT ST7735 de 80x160 por SPI.",
+      "descriptionEn": "Draw text and shapes on an 80x160 ST7735 TFT over SPI.",
+      "requires": [
+        "Pantalla ST7735 de 0.96\" en CS A1, DC A2, RES A3, MOSI D11 y SCK D13",
+        "st7735.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "0.96\" ST7735 display on CS A1, DC A2, RES A3, MOSI D11 and SCK D13",
+        "st7735.py saved on the board"
       ]
     },
     {
@@ -305,6 +349,15 @@
       "license": "MIT",
       "examples": [
         "mmc5603-compass"
+      ]
+    },
+    {
+      "id": "st7735",
+      "file": "st7735.py",
+      "source": "https://github.com/boochow/MicroPython-ST7735",
+      "license": "Not specified",
+      "examples": [
+        "st7735-display"
       ]
     }
   ]
