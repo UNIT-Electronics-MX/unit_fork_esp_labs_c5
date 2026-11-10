@@ -31,6 +31,11 @@ to run it at startup. Use `Ctrl+C` to stop a running script.
 | `ble_scan.py` | Communication / Bluetooth | BLE advertisement scan |
 | `thingspeak_dht.py` | Wi-Fi to the cloud / I1 | DHT11 on A2 (GPIO4); 2.4 or 5 GHz; ThingSpeak key |
 | `ble_touch.py` | Bluetooth LE touch / I2 | TTP223B on A3 (GPIO5); notifies `touched` / `released` |
+| `fht40_temp_humidity.py` | Onboard sensors / FHT40 | Temperature and humidity at 0x44 on GPIO2/GPIO3 |
+| `lps22hb_pressure.py` | Onboard sensors / LPS22HB | Pressure and temperature at 0x5C on GPIO2/GPIO3 |
+| `vcnl4040_light_prox.py` | Onboard sensors / VCNL4040 | Proximity and ambient light at 0x60 on GPIO2/GPIO3 |
+| `max17048_battery.py` | Onboard sensors / MAX17048 | LiPo voltage and charge at 0x36 on GPIO2/GPIO3 |
+| `mmc5603_compass.py` | Onboard sensors / MMC5603 | Three magnetic axes at 0x30 on GPIO2/GPIO3, 20 Hz |
 
 `oled.py` (Display lesson O1) uses only the SSD1306 screen; `oled_light.py` (Sensors lesson D2) additionally needs a TEMT6000 DDP sensor. Both scripts require UNIT's copy of the MicroPython `ssd1306.py` driver. Save
 `libraries/ssd1306.py` as `ssd1306.py` on the board before running either example. The browser workspace includes an **Install ssd1306.py** action.
@@ -40,6 +45,16 @@ The workspace includes an **Install sdcard.py** action. Both drivers are MIT
 licensed; the license is in `libraries/LICENSE`. Upstream sources:
 [UNIT SSD1306 driver](https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/ssd1306/ssd1306.py)
 and [UNIT SD driver](https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/sdcard/sdcard.py).
+
+The five onboard sensors use the sensor bus on GPIO2/GPIO3. Save each driver
+from `libraries/` to the board under the same name before running its example:
+`fht40.py`, `lps22hb.py`, `vcnl4040.py`, `max1704x.py` and `mmc5603.py`.
+Each example checks the sensor address first and stops with an error if the
+sensor does not answer. The drivers come from the
+[UNIT DevLab MicroPython libraries](https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries),
+which are MIT licensed. The VCNL4040 driver is a port of Adafruit's library, and
+the MMC5603 and MAX17043/48 drivers are based on upstream projects. Their license
+headers stay in the files.
 
 The ADC example uses 11 dB attenuation. Its millivolt reading is approximate
 and may saturate near 3.3 V. Never exceed 3.3 V on A2.

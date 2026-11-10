@@ -46,6 +46,60 @@
       "requiresEn": []
     },
     {
+      "id": "fht40-temp-humidity",
+      "title": "I²C · temperatura y humedad",
+      "titleEn": "I²C · temperature and humidity",
+      "file": "fht40_temp_humidity.py",
+      "description": "Lee temperatura y humedad del FHT40 integrado.",
+      "descriptionEn": "Read temperature and humidity from the onboard FHT40.",
+      "requires": [],
+      "requiresEn": []
+    },
+    {
+      "id": "lps22hb-pressure",
+      "title": "I²C · presión y temperatura",
+      "titleEn": "I²C · pressure and temperature",
+      "file": "lps22hb_pressure.py",
+      "description": "Lee presión y temperatura del LPS22HB integrado.",
+      "descriptionEn": "Read pressure and temperature from the onboard LPS22HB.",
+      "requires": [],
+      "requiresEn": []
+    },
+    {
+      "id": "vcnl4040-light-prox",
+      "title": "I²C · proximidad y luz",
+      "titleEn": "I²C · proximity and light",
+      "file": "vcnl4040_light_prox.py",
+      "description": "Lee proximidad y luz ambiental del VCNL4040 integrado.",
+      "descriptionEn": "Read proximity and ambient light from the onboard VCNL4040.",
+      "requires": [],
+      "requiresEn": []
+    },
+    {
+      "id": "max17048-battery",
+      "title": "I²C · batería LiPo",
+      "titleEn": "I²C · LiPo battery",
+      "file": "max17048_battery.py",
+      "description": "Lee voltaje y carga de la batería con el MAX17048 integrado.",
+      "descriptionEn": "Read cell voltage and charge with the onboard MAX17048 gauge.",
+      "requires": [
+        "Batería LiPo conectada a la placa"
+      ],
+      "requiresEn": [
+        "LiPo battery connected to the board"
+      ]
+    },
+    {
+      "id": "mmc5603-compass",
+      "title": "I²C · magnetómetro",
+      "titleEn": "I²C · magnetometer",
+      "file": "mmc5603_compass.py",
+      "description": "Lee los tres ejes magnéticos del MMC5603 integrado a 20 Hz.",
+      "descriptionEn": "Read the three magnetic axes of the onboard MMC5603 at 20 Hz.",
+      "requires": [],
+      "requiresEn": []
+    },
+    {
       "id": "neopixel",
       "title": "NeoPixel · LED RGB",
       "titleEn": "NeoPixel · RGB LED",
@@ -206,6 +260,51 @@
       "examples": [
         "oled",
         "oled-light"
+      ]
+    },
+    {
+      "id": "fht40",
+      "file": "fht40.py",
+      "source": "https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/fht40/fht40.py",
+      "license": "MIT",
+      "examples": [
+        "fht40-temp-humidity"
+      ]
+    },
+    {
+      "id": "lps22hb",
+      "file": "lps22hb.py",
+      "source": "https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/lps22hb/lps22hb.py",
+      "license": "MIT",
+      "examples": [
+        "lps22hb-pressure"
+      ]
+    },
+    {
+      "id": "vcnl4040",
+      "file": "vcnl4040.py",
+      "source": "https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/vcnl4040/vcnl4040.py",
+      "license": "MIT",
+      "examples": [
+        "vcnl4040-light-prox"
+      ]
+    },
+    {
+      "id": "max1704x",
+      "file": "max1704x.py",
+      "source": "https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/max1704x/max1704x.py",
+      "license": "MIT",
+      "examples": [
+        "max17048-battery"
+      ]
+    },
+    {
+      "id": "mmc5603",
+      "file": "mmc5603.py",
+      "source": "https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/mmc5603/mmc5603.py",
+      "license": "MIT",
+      "examples": [
+        "mmc5603-compass"
       ]
     }
   ]
