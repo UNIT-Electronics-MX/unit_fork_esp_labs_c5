@@ -34,14 +34,13 @@ device = ddp_read(0x00, 2)
 firmware = ddp_read(0x01, 2)
 hardware = ddp_read(0x02, 2)
 capabilities = ddp_read(0x03, 4)
-device_id = device[0] | (device[1] << 8)
-if protocol[0] != 1 or device_id != 0x0100:
-    raise OSError("0x20 is not a DDP TEMT6000 (ID 0x0100)")
-print("TEMT6000 ID 0x{:04X}, protocol {}.{}, firmware {}.{}, hardware {}.{}".format(
-    device_id, protocol[0], protocol[1], firmware[0], firmware[1],
+
+print("TEMT6000  protocol {}.{}, firmware {}.{}, hardware {}.{}".format(
+     protocol[0], protocol[1], firmware[0], firmware[1],
     hardware[0], hardware[1]))
+
 print("Capabilities:", capabilities)
-print("adc0_raw")
+print("raw")
 
 display = SSD1306_I2C(128, 64, i2c, addr=OLED_ADDRESS)
 history = [0] * HISTORY_LENGTH
