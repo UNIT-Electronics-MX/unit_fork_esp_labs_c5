@@ -2,7 +2,7 @@
 
 These editable scripts adapt MicroPython topics from the Pulsar C6 guide: GPIO,
 ADC, I²C, NeoPixel, RGB mixing, an external LED circuit, OLED, SPI/microSD,
-UART loopback, Wi-Fi, and Bluetooth LE. Pin assignments target Pulsar C5
+UART loopback, Wi-Fi, and Bluetooth LE (including the eight B1–B8 labs). Pin assignments target Pulsar C5
 V1.2.3 and match the C5 Arduino examples in `unit_fork_esp_c5_labs_web/sketches/pulsar-c5/`.
 
 Install the [ESP32-C5 MicroPython firmware](https://micropython.org/download/ESP32_GENERIC_C5/)
@@ -27,7 +27,8 @@ to run it at startup. Use `Ctrl+C` to stop a running script.
 | `tmp235_temperature.py` | Analog temperature / D3 | TMP235 VOUT on A2 / GPIO4 |
 | `oled.py` | Standalone OLED / O1 | SSD1306 only on QWIIC GPIO1/6 |
 | `oled_light.py` | OLED light graph / D2 | SSD1306 and TEMT6000 DDP on QWIIC GPIO1/6 |
-| `st7735_display.py` | TFT display / SPI | 0.96-inch ST7735 80x160: CS A1/GPIO1, DC A2/GPIO4, RES A3/GPIO5, MOSI D11/GPIO7, SCK D13/GPIO27 |
+| `st7735_display.py` | TFT display / SPI | 0.96-inch ST7735 80x160: CS D4/GPIO9, DC A2/GPIO4, RES A3/GPIO5, MOSI D11/GPIO7, SCK D13/GPIO27 |
+| `st7735_showcase.py` | TFT showcase / O3 | Same ST7735 wiring; BOOT changes four animated scenes |
 | `microsd.py` | SPI / SD / P5 | SCK27, MOSI7, MISO26, CS23 |
 | `uart_loopback.py` | UART / P6 | TX0/GPIO11 bridged to RX0/GPIO12 |
 | `wifi.py` | Communication / Wi-Fi | Editable network credentials |
@@ -39,6 +40,14 @@ to run it at startup. Use `Ctrl+C` to stop a running script.
 | `vcnl4040_light_prox.py` | Onboard sensors / VCNL4040 | Proximity and ambient light at 0x60 on GPIO2/GPIO3 |
 | `max17048_battery.py` | Onboard sensors / MAX17048 | LiPo voltage and charge at 0x36 on GPIO2/GPIO3 |
 | `mmc5603_compass.py` | Onboard sensors / MMC5603 | Three magnetic axes at 0x30 on GPIO2/GPIO3, 20 Hz |
+| `ble_b1_listen.py` | Bluetooth LE / B1 Listen | Continuous scan; serial list, bytes, watch; BOOT gestures |
+| `ble_b2_beacon.py` | Bluetooth LE / B2 Be seen | Bench, iBeacon, Eddystone-URL and name packets |
+| `ble_b3_gatt.py` | Bluetooth LE / B3 Connect & talk | Bench GATT service; LED write lights the WS2812 |
+| `ble_b4_pair.py` | Bluetooth LE / B4 Pair & trust | Vault needs MITM pairing; bonds in `ble_bonds.json` |
+| `ble_b5_app.py` | Bluetooth LE / B5 Phone app | ble-app Canvas, Sensors, Speed; touch replaced by A2 |
+| `ble_b6_keyboard.py` | Bluetooth LE / B6 Keyboard & media | HID over GATT, US layout, Just Works bond |
+| `ble_b7_midi.py` | Bluetooth LE / B7 Music | Standard BLE-MIDI service; BOOT plays the scale |
+| `ble_b8_host.py` | Bluetooth LE / B8 Host | Central: explore GATT, host a BLE keyboard or mouse |
 
 `oled.py` (Display lesson O1) uses only the SSD1306 screen; `oled_light.py` (Sensors lesson D2) additionally needs a TEMT6000 DDP sensor. Both scripts require UNIT's copy of the MicroPython `ssd1306.py` driver. Save
 `libraries/ssd1306.py` as `ssd1306.py` on the board before running either example. The browser workspace includes an **Install ssd1306.py** action.
@@ -49,8 +58,10 @@ licensed; the license is in `libraries/LICENSE`. Upstream sources:
 [UNIT SSD1306 driver](https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/ssd1306/ssd1306.py)
 and [UNIT SD driver](https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/sdcard/sdcard.py).
 
-`st7735_display.py` uses `libraries/st7735.py`, saved on the board as
-`st7735.py`. The ST7735 TFT shares the SPI bus with the microSD card, so the
+`st7735_display.py` and `st7735_showcase.py` accept both the direct-drawing
+`libraries/st7735.py` driver and the earlier web driver with `rgb565` and
+`frame`. Either can be saved as `st7735.py` on the board; no reinstall is
+needed when one of these versions is already present. The ST7735 TFT shares the SPI bus with the microSD card, so the
 example holds the SD chip select (GPIO23) high. The TFT's SDA and SCL labels
 are SPI data and clock, not I²C. The driver file does not state a license;
 its source is [boochow's MicroPython-ST7735](https://github.com/boochow/MicroPython-ST7735),
@@ -65,6 +76,38 @@ sensor does not answer. The drivers come from the
 which are MIT licensed. The VCNL4040 driver is a port of Adafruit's library, and
 the MMC5603 and MAX17043/48 drivers are based on upstream projects. Their license
 headers stay in the files.
+
+## Bluetooth LE labs B1–B8
+
+`ble_b1_listen.py` … `ble_b8_host.py` port the eight C++ labs in `labs/ble-lab-b1`
+… `labs/ble-lab-b8` to MicroPython on the Pulsar C5. They share
+`libraries/ble_kit.py`, the MicroPython counterpart of `kit/lib/ble-kit`: the
+radio and its events, a serial console that does not block the radio, BOOT
+gestures, the WS2812 as a status light, a bond store and the Bench GATT service.
+Save it on the board as `ble_kit.py` first; the workspace has an
+**Install ble_kit.py** action.
+
+The service UUIDs, packet layouts and the HID Report Map match the C++ labs, so
+nRF Connect, LightBlue, GarageBand and `apps/ble-app` see the same device. The
+differences come from the board and from MicroPython's `bluetooth` module:
+
+- No screen. Each lab prints to the serial console, and the views become commands
+  (type `help`). BOOT (GPIO28) replaces the push button: click, double-click and
+  long press keep their roles. The WS2812 blinks blue while advertising or
+  scanning and turns green when connected.
+- No touch sensor on the ESP32-C5. B5's touch value carries the A2 (GPIO4) ADC
+  reading, and B6/B7 drop the touch wires.
+- MicroPython does not report subscriptions, connection RSSI, connection
+  parameters or the PHY. The labs notify every connected device. B5 sends RSSI 0
+  and logs Link requests without acting on them. B3 has no `params` or `phy` command.
+- No TX power control. B2 advertises the TX power value, but cannot change it.
+- Bonds are saved in `ble_bonds.json` (B4, B6) and `ble_host_bonds.json` (B8). Use
+  `forget` and also forget the board on the phone.
+- B6 types with a US layout. B8 decodes keyboards that send 8-byte boot-style
+  reports and prints any other report as hex.
+
+These scripts compile with `mpy-cross` 1.29 and their packet logic was tested on
+a computer. Radio behaviour still needs testing on a Pulsar C5.
 
 The ADC example uses 11 dB attenuation. Its millivolt reading is approximate
 and may saturate near 3.3 V. Never exceed 3.3 V on A2.

@@ -191,11 +191,27 @@
       "description": "Dibuja texto y figuras en una pantalla TFT ST7735 de 80x160 por SPI.",
       "descriptionEn": "Draw text and shapes on an 80x160 ST7735 TFT over SPI.",
       "requires": [
-        "Pantalla ST7735 de 0.96\" en CS A1, DC A2, RES A3, MOSI D11 y SCK D13",
+        "Pantalla ST7735 de 0.96\" en CS D4/GPIO9, DC A2, RES A3, MOSI D11 y SCK D13",
         "st7735.py guardado en la placa"
       ],
       "requiresEn": [
-        "0.96\" ST7735 display on CS A1, DC A2, RES A3, MOSI D11 and SCK D13",
+        "0.96\" ST7735 display on CS D4/GPIO9, DC A2, RES A3, MOSI D11 and SCK D13",
+        "st7735.py saved on the board"
+      ]
+    },
+    {
+      "id": "st7735-showcase",
+      "title": "SPI · showcase ST7735",
+      "titleEn": "SPI · ST7735 showcase",
+      "file": "st7735_showcase.py",
+      "description": "Cuatro escenas animadas en la TFT; BOOT cambia de escena.",
+      "descriptionEn": "Four animated TFT scenes; BOOT switches scenes.",
+      "requires": [
+        "TFT ST7735 de 80×160 con el cableado de O2",
+        "st7735.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "80×160 ST7735 TFT wired as in O2",
         "st7735.py saved on the board"
       ]
     },
@@ -284,6 +300,132 @@
         "TTP223B on A3 (GPIO5)",
         "nRF Connect or LightBlue on the phone"
       ]
+    },
+    {
+      "id": "ble-b1-listen",
+      "title": "Bluetooth LE · B1 escuchar",
+      "titleEn": "Bluetooth LE · B1 listen",
+      "file": "ble_b1_listen.py",
+      "description": "Escáner continuo: lista, bytes de cada anuncio, intervalo y escaneo activo o pasivo.",
+      "descriptionEn": "Continuous scanner: device list, each advertisement's bytes, interval, active or passive scan.",
+      "requires": [
+        "ble_kit.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "ble_kit.py saved on the board"
+      ]
+    },
+    {
+      "id": "ble-b2-beacon",
+      "title": "Bluetooth LE · B2 beacon",
+      "titleEn": "Bluetooth LE · B2 beacon",
+      "file": "ble_b2_beacon.py",
+      "description": "Valores en vivo en el anuncio, iBeacon, Eddystone-URL o solo un nombre.",
+      "descriptionEn": "Live values in the advertisement, iBeacon, Eddystone-URL or just a name.",
+      "requires": [
+        "nRF Connect o LightBlue en el teléfono",
+        "ble_kit.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "nRF Connect or LightBlue on the phone",
+        "ble_kit.py saved on the board"
+      ]
+    },
+    {
+      "id": "ble-b3-gatt",
+      "title": "Bluetooth LE · B3 servidor GATT",
+      "titleEn": "Bluetooth LE · B3 GATT server",
+      "file": "ble_b3_gatt.py",
+      "description": "Servicio Bench: LED RGB, mensaje, botón BOOT, temperatura y tiempo encendida.",
+      "descriptionEn": "The Bench service: RGB LED, message, BOOT button, temperature and uptime.",
+      "requires": [
+        "nRF Connect o LightBlue en el teléfono",
+        "ble_kit.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "nRF Connect or LightBlue on the phone",
+        "ble_kit.py saved on the board"
+      ]
+    },
+    {
+      "id": "ble-b4-pair",
+      "title": "Bluetooth LE · B4 emparejar",
+      "titleEn": "Bluetooth LE · B4 pair",
+      "file": "ble_b4_pair.py",
+      "description": "Bench con una Bóveda cifrada: comparación numérica con BOOT y vínculos guardados.",
+      "descriptionEn": "Bench plus an encrypted Vault: numeric comparison with BOOT and saved bonds.",
+      "requires": [
+        "nRF Connect o LightBlue en el teléfono",
+        "ble_kit.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "nRF Connect or LightBlue on the phone",
+        "ble_kit.py saved on the board"
+      ]
+    },
+    {
+      "id": "ble-b5-app",
+      "title": "Bluetooth LE · B5 app web",
+      "titleEn": "Bluetooth LE · B5 web app",
+      "file": "ble_b5_app.py",
+      "description": "Bench más dibujo, sensores en vivo y prueba de velocidad para la ble-app.",
+      "descriptionEn": "Bench plus sketch, live sensors and a speed test for the ble-app.",
+      "requires": [
+        "Chrome con Web Bluetooth o Bluefy en iPhone",
+        "ble_kit.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "Chrome with Web Bluetooth, or Bluefy on iPhone",
+        "ble_kit.py saved on the board"
+      ]
+    },
+    {
+      "id": "ble-b6-keyboard",
+      "title": "Bluetooth LE · B6 teclado",
+      "titleEn": "Bluetooth LE · B6 keyboard",
+      "file": "ble_b6_keyboard.py",
+      "description": "Teclado HID y teclas multimedia: escribe texto y controla la música.",
+      "descriptionEn": "HID keyboard and media keys: type text and control the music.",
+      "requires": [
+        "Teléfono u ordenador con distribución de teclado US",
+        "ble_kit.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "Phone or computer with a US keyboard layout",
+        "ble_kit.py saved on the board"
+      ]
+    },
+    {
+      "id": "ble-b7-midi",
+      "title": "Bluetooth LE · B7 MIDI",
+      "titleEn": "Bluetooth LE · B7 MIDI",
+      "file": "ble_b7_midi.py",
+      "description": "Instrumento BLE-MIDI: escalas, acordes, melodías y caja de ritmos.",
+      "descriptionEn": "A BLE-MIDI instrument: scales, chords, tunes and a drum machine.",
+      "requires": [
+        "GarageBand, una app de sintetizador o la ble-app",
+        "ble_kit.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "GarageBand, a synth app or the ble-app",
+        "ble_kit.py saved on the board"
+      ]
+    },
+    {
+      "id": "ble-b8-host",
+      "title": "Bluetooth LE · B8 anfitrión",
+      "titleEn": "Bluetooth LE · B8 host",
+      "file": "ble_b8_host.py",
+      "description": "La placa como central: explora dispositivos y aloja un teclado o ratón BLE.",
+      "descriptionEn": "The board as the central: explore devices and host a BLE keyboard or mouse.",
+      "requires": [
+        "Un teclado o ratón Bluetooth LE",
+        "ble_kit.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "A Bluetooth LE keyboard or mouse",
+        "ble_kit.py saved on the board"
+      ]
     }
   ],
   "libraries": [
@@ -352,12 +494,19 @@
       ]
     },
     {
-      "id": "st7735",
-      "file": "st7735.py",
-      "source": "https://github.com/boochow/MicroPython-ST7735",
-      "license": "Not specified",
+      "id": "ble-kit",
+      "file": "ble_kit.py",
+      "source": "https://github.com/UNIT-Electronics-MX/unit_fork_esp_labs_c5/blob/main/examples/micropython/pulsar-c5/libraries/ble_kit.py",
+      "license": "MIT",
       "examples": [
-        "st7735-display"
+        "ble-b1-listen",
+        "ble-b2-beacon",
+        "ble-b3-gatt",
+        "ble-b4-pair",
+        "ble-b5-app",
+        "ble-b6-keyboard",
+        "ble-b7-midi",
+        "ble-b8-host"
       ]
     }
   ]
