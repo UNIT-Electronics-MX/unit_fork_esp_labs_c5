@@ -1,6 +1,7 @@
 """Pulsar C5 ST7735 showcase: four scenes, switched with BOOT."""
 
 from machine import Pin, SPI
+from framebuf import FrameBuffer, RGB565
 from time import ticks_ms, ticks_diff, sleep_ms
 import st7735
 
@@ -16,68 +17,71 @@ Pin(SD_CS_PIN, Pin.OUT, value=1)
 boot = Pin(BOOT_PIN, Pin.IN, Pin.PULL_UP)
 spi = SPI(1, baudrate=4_000_000, polarity=0, phase=0,
           sck=Pin(SCK_PIN), mosi=Pin(MOSI_PIN))
+WIDTH = 80
+HEIGHT = 160
+FRAME_MS = 125
+
 if hasattr(st7735, "TFTColor"):
-    # Direct-drawing driver from libraries/st7735.py.
-    buffered = False
+    # Compose off-screen even with the direct-drawing driver. A full-screen
+    # clear on the TFT followed by hundreds of SPI writes caused the flicker.
     tft = st7735.TFT(spi, DC_PIN, RES_PIN, CS_PIN,
-                     width=80, height=160, xoffset=26, yoffset=1)
+                     width=WIDTH, height=HEIGHT, xoffset=26, yoffset=1)
     tft.initg()
     tft.rgb(False)
     tft.invertcolor(True)
-    colour = st7735.TFTColor
-    frame = None
+    pixels = bytearray(WIDTH * HEIGHT * 2)
+    frame = FrameBuffer(pixels, WIDTH, HEIGHT, RGB565)
+
+    # ST7735.image() sends RGB565 high byte first. FrameBuffer's byte order
+    # depends on the MicroPython port, so detect it instead of assuming it.
+    probe = bytearray(2)
+    FrameBuffer(probe, 1, 1, RGB565).pixel(0, 0, 0xF800)
+    swap_bytes = probe[0] != 0xF8
+
+    def colour(red, green, blue):
+        value = st7735.TFTColor(red, green, blue)
+        return ((value & 0xFF) << 8) | (value >> 8) if swap_bytes else value
+
+    def show_frame():
+        tft.image(0, 0, WIDTH - 1, HEIGHT - 1, pixels)
+
 elif hasattr(st7735, "rgb565"):
-    # Earlier web driver; draw in its framebuffer and flush once per scene.
-    buffered = True
+    # Earlier web driver already owns a framebuffer and a full-frame flush.
     tft = st7735.TFT(spi, DC_PIN, RES_PIN, CS_PIN,
                      xoffset=26, yoffset=1)
     tft.init()
-    colour = st7735.rgb565
     frame = tft.frame
+    colour = st7735.rgb565
+
+    def show_frame():
+        tft.show()
+
 else:
     raise RuntimeError("Unsupported st7735.py; install the driver from this lesson")
 
 
 def fill(value):
-    if buffered:
-        frame.fill(value)
-    else:
-        tft.fill(value)
+    frame.fill(value)
 
 
 def text(x, y, message, value):
-    if buffered:
-        frame.text(message, x, y, value)
-    else:
-        tft.text((x, y), message, value)
+    frame.text(message, x, y, value)
 
 
 def hline(x, y, width, value):
-    if buffered:
-        frame.hline(x, y, width, value)
-    else:
-        tft.hline((x, y), width, value)
+    frame.hline(x, y, width, value)
 
 
 def rect(x, y, width, height, value):
-    if buffered:
-        frame.rect(x, y, width, height, value)
-    else:
-        tft.rect((x, y), (width, height), value)
+    frame.rect(x, y, width, height, value)
 
 
 def fillrect(x, y, width, height, value):
-    if buffered:
-        frame.fill_rect(x, y, width, height, value)
-    else:
-        tft.fillrect((x, y), (width, height), value)
+    frame.fill_rect(x, y, width, height, value)
 
 
 def pixel(x, y, value):
-    if buffered:
-        frame.pixel(x, y, value)
-    else:
-        tft.pixel((x, y), value)
+    frame.pixel(x, y, value)
 
 
 BLACK = colour(0, 0, 0)
@@ -123,8 +127,7 @@ def draw(scene, tick):
             fillrect(4, 112, used, 10, ORANGE)
 
     text(18, 144, "BOOT >", WHITE)
-    if buffered:
-        tft.show()
+    show_frame()
 
 
 scene = 0
@@ -142,7 +145,7 @@ while True:
         last_press = now
         print("scene:", NAMES[scene])
     previous = pressed
-    if ticks_diff(now, last_draw) >= 250:
+    if ticks_diff(now, last_draw) >= FRAME_MS:
         draw(scene, tick)
         tick += 1
         last_draw = now

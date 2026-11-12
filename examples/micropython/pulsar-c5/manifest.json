@@ -46,6 +46,20 @@
       "requiresEn": []
     },
     {
+      "id": "p4-sensor-stream",
+      "title": "P4 · panel de cinco sensores",
+      "titleEn": "P4 · five-sensor dashboard",
+      "file": "p4_sensor_stream.py",
+      "description": "Envía las lecturas de los cinco sensores integrados a Processing.",
+      "descriptionEn": "Stream all five onboard sensors to Processing.",
+      "requires": [
+        "Instalar los cinco controladores I²C antes de ejecutar"
+      ],
+      "requiresEn": [
+        "Install all five I²C drivers before running"
+      ]
+    },
+    {
       "id": "fht40-temp-humidity",
       "title": "I²C · temperatura y humedad",
       "titleEn": "I²C · temperature and humidity",
@@ -135,6 +149,38 @@
       ],
       "requiresEn": [
         "BMI270 on QWIIC, with pull-ups on its board"
+      ]
+    },
+    {
+      "id": "imu-bmi270-motion",
+      "title": "QWIIC · movimiento BMI270",
+      "titleEn": "QWIIC · BMI270 motion",
+      "file": "bmi270_motion.py",
+      "description": "Lee aceleración y velocidad angular del BMI270 por QWIIC.",
+      "descriptionEn": "Read BMI270 acceleration and angular velocity over QWIIC.",
+      "requires": [
+        "BMI270 en QWIIC",
+        "bmi270.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "BMI270 on QWIIC",
+        "bmi270.py saved on the board"
+      ]
+    },
+    {
+      "id": "imu-bmi270-cube",
+      "title": "QWIIC · cubo IMU BMI270",
+      "titleEn": "QWIIC · BMI270 IMU cube",
+      "file": "bmi270_cube.py",
+      "description": "Envía roll, pitch y yaw por serie para girar un cubo 3D (web o Processing); acepta c para calibrar y z para poner el yaw a cero.",
+      "descriptionEn": "Stream roll, pitch and yaw over serial to turn a 3D cube (web or Processing); send c to calibrate and z to zero the yaw.",
+      "requires": [
+        "BMI270 en QWIIC",
+        "bmi270.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "BMI270 on QWIIC",
+        "bmi270.py saved on the board"
       ]
     },
     {
@@ -283,6 +329,104 @@
       "requiresEn": [
         "DHT11 on A2 (GPIO4)",
         "Edit WIFI_SSID, WIFI_PASS and THINGSPEAK_API_KEY"
+      ]
+    },
+    {
+      "id": "wifi-w1-scan",
+      "title": "Wi-Fi · W1 escanear y conectar",
+      "titleEn": "Wi-Fi · W1 scan & join",
+      "file": "wifi_w1_scan.py",
+      "description": "Escanea 2,4 y 5 GHz, se une a tu red con la contraseña guardada en NVS, hora de internet, bench.local y señal en vivo.",
+      "descriptionEn": "Scans 2.4 and 5 GHz, joins your network with the password kept in NVS, internet time, bench.local and live signal.",
+      "requires": [
+        "wifi_kit.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "wifi_kit.py saved on the board"
+      ]
+    },
+    {
+      "id": "wifi-w2-basic",
+      "title": "Wi-Fi · W2 básico: página local y LED RGB",
+      "titleEn": "Wi-Fi · W2 basic: local page and RGB LED",
+      "file": "wifi_w2_basic.py",
+      "description": "Servidor HTTP sencillo con señal Wi-Fi en vivo y control del LED RGB desde un teléfono.",
+      "descriptionEn": "Simple HTTP server with live Wi-Fi signal and RGB LED control from a phone.",
+      "requires": [
+        "Credenciales Wi-Fi o conexión activa de W1",
+        "Teléfono u ordenador en la misma red Wi-Fi"
+      ],
+      "requiresEn": [
+        "Wi-Fi credentials or an active W1 connection",
+        "Phone or computer on the same Wi-Fi"
+      ]
+    },
+    {
+      "id": "wifi-w2-display",
+      "title": "Wi-Fi · W2 señal en TFT y control desde el teléfono",
+      "titleEn": "Wi-Fi · W2 signal on TFT and phone control",
+      "file": "wifi_w2_display.py",
+      "description": "Muestra RSSI, barras, historial e IP en ST7735 mientras la página del teléfono controla el LED RGB.",
+      "descriptionEn": "Shows RSSI, bars, history and IP on an ST7735 while the phone page controls the RGB LED.",
+      "requires": [
+        "Credenciales Wi-Fi o conexión activa de W1",
+        "Pantalla ST7735 80x160 conectada como en O2 y st7735.py instalado",
+        "Teléfono en la misma red Wi-Fi"
+      ],
+      "requiresEn": [
+        "Wi-Fi credentials or an active W1 connection",
+        "80x160 ST7735 connected as in O2 and st7735.py installed",
+        "Phone on the same Wi-Fi"
+      ]
+    },
+    {
+      "id": "wifi-w2-phone",
+      "title": "Wi-Fi · W2 control desde el teléfono",
+      "titleEn": "Wi-Fi · W2 phone control",
+      "file": "wifi_w2_phone.py",
+      "description": "Servidor web con API REST, WebSocket en vivo, página para el teléfono, red de configuración bench-setup y enlace remoto al dashboard.",
+      "descriptionEn": "Web server with a REST API, live WebSocket, phone page, bench-setup network and a remote link to the dashboard.",
+      "requires": [
+        "wifi_kit.py guardado en la placa",
+        "Un teléfono o un ordenador en la misma red"
+      ],
+      "requiresEn": [
+        "wifi_kit.py saved on the board",
+        "A phone or computer on the same network"
+      ]
+    },
+    {
+      "id": "wifi-w3-basic",
+      "title": "Wi-Fi · W3 básico: clima actual",
+      "titleEn": "Wi-Fi · W3 basic: current weather",
+      "file": "wifi_w3_basic.py",
+      "description": "Petición HTTPS a Open-Meteo para imprimir temperatura, humedad y viento.",
+      "descriptionEn": "HTTPS request to Open-Meteo to print temperature, humidity and wind.",
+      "requires": [
+        "Credenciales Wi-Fi o conexión activa de W1",
+        "Conexión Wi-Fi con acceso a internet"
+      ],
+      "requiresEn": [
+        "Wi-Fi credentials or an active W1 connection",
+        "Wi-Fi connection with internet access"
+      ]
+    },
+    {
+      "id": "wifi-w3-oracle",
+      "title": "Wi-Fi · W3 clima e IA",
+      "titleEn": "Wi-Fi · W3 weather & AI",
+      "file": "wifi_w3_oracle.py",
+      "description": "Clima por HTTPS (Open-Meteo) y el Oráculo: un haiku o una respuesta de un modelo de IA a través de LiteLLM.",
+      "descriptionEn": "Weather over HTTPS (Open-Meteo) and the Oracle: a haiku or an answer from an AI model through LiteLLM.",
+      "requires": [
+        "Una red guardada con W1",
+        "wifi_kit.py guardado en la placa",
+        "Pasarela LiteLLM en tu ordenador para el Oráculo"
+      ],
+      "requiresEn": [
+        "A network saved with W1",
+        "wifi_kit.py saved on the board",
+        "A LiteLLM gateway on your computer for the Oracle"
       ]
     },
     {
@@ -454,7 +598,8 @@
       "source": "https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/fht40/fht40.py",
       "license": "MIT",
       "examples": [
-        "fht40-temp-humidity"
+        "fht40-temp-humidity",
+        "p4-sensor-stream"
       ]
     },
     {
@@ -463,7 +608,8 @@
       "source": "https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/lps22hb/lps22hb.py",
       "license": "MIT",
       "examples": [
-        "lps22hb-pressure"
+        "lps22hb-pressure",
+        "p4-sensor-stream"
       ]
     },
     {
@@ -472,7 +618,8 @@
       "source": "https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/vcnl4040/vcnl4040.py",
       "license": "MIT",
       "examples": [
-        "vcnl4040-light-prox"
+        "vcnl4040-light-prox",
+        "p4-sensor-stream"
       ]
     },
     {
@@ -481,7 +628,8 @@
       "source": "https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/max1704x/max1704x.py",
       "license": "MIT",
       "examples": [
-        "max17048-battery"
+        "max17048-battery",
+        "p4-sensor-stream"
       ]
     },
     {
@@ -490,7 +638,8 @@
       "source": "https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/mmc5603/mmc5603.py",
       "license": "MIT",
       "examples": [
-        "mmc5603-compass"
+        "mmc5603-compass",
+        "p4-sensor-stream"
       ]
     },
     {
@@ -507,6 +656,27 @@
         "ble-b6-keyboard",
         "ble-b7-midi",
         "ble-b8-host"
+      ]
+    },
+    {
+      "id": "wifi-kit",
+      "file": "wifi_kit.py",
+      "source": "https://github.com/UNIT-Electronics-MX/unit_fork_esp_labs_c5/blob/main/examples/micropython/pulsar-c5/libraries/wifi_kit.py",
+      "license": "MIT",
+      "examples": [
+        "wifi-w1-scan",
+        "wifi-w2-phone",
+        "wifi-w3-oracle"
+      ]
+    },
+    {
+      "id": "bmi270",
+      "file": "bmi270.py",
+      "source": "https://github.com/UNIT-Electronics-MX/unit_devlab_micropython_libraries/blob/main/software/bmi270/bmi270.py",
+      "license": "MIT",
+      "examples": [
+        "imu-bmi270-motion",
+        "imu-bmi270-cube"
       ]
     }
   ]
