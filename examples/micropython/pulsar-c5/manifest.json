@@ -570,6 +570,150 @@
         "A Bluetooth LE keyboard or mouse",
         "ble_kit.py saved on the board"
       ]
+    },
+    {
+      "id": "rfid-r1-pn532",
+      "title": "RFID · R1 Conectar PN532 por I²C",
+      "titleEn": "RFID · R1 Connect PN532 over I²C",
+      "file": "rfid_r1_pn532.py",
+      "description": "Comprueba dirección y firmware del módulo.",
+      "descriptionEn": "Check the module address and firmware.",
+      "requires": [
+        "PN532 V3 en I²C por QWIIC GPIO1/6",
+        "pn532.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "PN532 V3 on I²C over QWIIC GPIO1/6",
+        "pn532.py saved on the board"
+      ]
+    },
+    {
+      "id": "rfid-r2-pn532",
+      "title": "RFID · R2 Detectar tarjeta NFC",
+      "titleEn": "RFID · R2 Detect an NFC card",
+      "file": "rfid_r2_pn532.py",
+      "description": "Lee UID, ATQA y SAK de una tarjeta.",
+      "descriptionEn": "Read a card UID, ATQA and SAK.",
+      "requires": [
+        "PN532 V3 en I²C por QWIIC GPIO1/6",
+        "pn532.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "PN532 V3 on I²C over QWIIC GPIO1/6",
+        "pn532.py saved on the board"
+      ]
+    },
+    {
+      "id": "rfid-r3-pn532",
+      "title": "RFID · R3 Inventario de tarjetas",
+      "titleEn": "RFID · R3 Card inventory",
+      "file": "rfid_r3_pn532.py",
+      "description": "Cuenta tarjetas presentadas de una en una.",
+      "descriptionEn": "Count cards presented one at a time.",
+      "requires": [
+        "PN532 V3 en I²C por QWIIC GPIO1/6",
+        "pn532.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "PN532 V3 on I²C over QWIIC GPIO1/6",
+        "pn532.py saved on the board"
+      ]
+    },
+    {
+      "id": "rfid-r4-pn532",
+      "title": "RFID · R4 Leer memoria NFC",
+      "titleEn": "RFID · R4 Read NFC memory",
+      "file": "rfid_r4_pn532.py",
+      "description": "Lee un bloque Classic o páginas Type 2.",
+      "descriptionEn": "Read a Classic block or Type 2 pages.",
+      "requires": [
+        "PN532 V3 en I²C por QWIIC GPIO1/6",
+        "pn532.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "PN532 V3 on I²C over QWIIC GPIO1/6",
+        "pn532.py saved on the board"
+      ]
+    },
+    {
+      "id": "rfid-r5-pn532",
+      "title": "RFID · R5 Escribir y verificar",
+      "titleEn": "RFID · R5 Write and verify",
+      "file": "rfid_r5_pn532.py",
+      "description": "Escribe datos de prueba con activación explícita y verifica.",
+      "descriptionEn": "Write test data with explicit arming and verify.",
+      "requires": [
+        "PN532 V3 en I²C por QWIIC GPIO1/6",
+        "pn532.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "PN532 V3 on I²C over QWIIC GPIO1/6",
+        "pn532.py saved on the board"
+      ]
+    },
+    {
+      "id": "rfid-r6-pn532",
+      "title": "RFID · R6 Medir el alcance",
+      "titleEn": "RFID · R6 Measure read range",
+      "file": "rfid_r6_pn532.py",
+      "description": "Mide aciertos y tiempo de lectura a distintas distancias.",
+      "descriptionEn": "Measure hits and read time at different distances.",
+      "requires": [
+        "PN532 V3 en I²C por QWIIC GPIO1/6",
+        "pn532.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "PN532 V3 on I²C over QWIIC GPIO1/6",
+        "pn532.py saved on the board"
+      ]
+    },
+    {
+      "id": "rfid-r7-pn532",
+      "title": "RFID · R7 Puerta simulada",
+      "titleEn": "RFID · R7 Simulated door",
+      "file": "rfid_r7_pn532.py",
+      "description": "Guarda una lista local de UIDs y decide acceso de prueba.",
+      "descriptionEn": "Save a local UID list and decide simulated access.",
+      "requires": [
+        "PN532 V3 en I²C por QWIIC GPIO1/6",
+        "pn532.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "PN532 V3 on I²C over QWIIC GPIO1/6",
+        "pn532.py saved on the board"
+      ]
+    },
+    {
+      "id": "rfid-r8-pn532",
+      "title": "RFID · R8 Amigos de tarjetas",
+      "titleEn": "RFID · R8 Card friends",
+      "file": "rfid_r8_pn532.py",
+      "description": "Asigna un personaje persistente a cada tarjeta.",
+      "descriptionEn": "Assign a persistent character to each card.",
+      "requires": [
+        "PN532 V3 en I²C por QWIIC GPIO1/6",
+        "pn532.py guardado en la placa"
+      ],
+      "requiresEn": [
+        "PN532 V3 on I²C over QWIIC GPIO1/6",
+        "pn532.py saved on the board"
+      ]
+    },
+    {
+      "id": "ics43434-mic",
+      "title": "Audio · micrófono ICS-43434 por I²S",
+      "titleEn": "Audio · ICS-43434 I²S microphone",
+      "file": "ics43434_mic.py",
+      "description": "Mide dBFS y pico desde el micrófono DevLab y los envía a la consola serial web.",
+      "descriptionEn": "Measure dBFS and peak from the DevLab microphone in the web serial console.",
+      "requires": [
+        "Firmware ESP32-C5 MicroPython compilado con machine.I2S habilitado",
+        "Módulo ICS-43434 conectado a A2/GPIO4, A3/GPIO5 y D4/GPIO9"
+      ],
+      "requiresEn": [
+        "ESP32-C5 MicroPython firmware built with machine.I2S enabled",
+        "ICS-43434 module wired to A2/GPIO4, A3/GPIO5 and D4/GPIO9"
+      ]
     }
   ],
   "libraries": [
@@ -677,6 +821,22 @@
       "examples": [
         "imu-bmi270-motion",
         "imu-bmi270-cube"
+      ]
+    },
+    {
+      "id": "pn532",
+      "file": "pn532.py",
+      "source": "https://github.com/UNIT-Electronics-MX/unit_fork_esp_labs_c5/blob/main/examples/micropython/pulsar-c5/libraries/pn532.py",
+      "license": "MIT",
+      "examples": [
+        "rfid-r1-pn532",
+        "rfid-r2-pn532",
+        "rfid-r3-pn532",
+        "rfid-r4-pn532",
+        "rfid-r5-pn532",
+        "rfid-r6-pn532",
+        "rfid-r7-pn532",
+        "rfid-r8-pn532"
       ]
     }
   ]

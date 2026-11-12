@@ -71,6 +71,8 @@ at build time and displays them in the editor at `#/flash`.
 | Wi-Fi | [W1 Scan & join](labs/wifi-lab-w1/README.md) | `wifi-lab-w1` | bench, wifi-kit | none |
 | Wi-Fi | [W2 Phone control, variation 1](labs/wifi-lab-w2/README.md) | `wifi-lab-w2`, `wifi-lab-w2-remote` | bench, wifi-kit | [dashboard](apps/dashboard/README.md) |
 | Wi-Fi | [W3 Internet & AI](labs/wifi-lab-w3/README.md) | `wifi-lab-w3` | bench, wifi-kit | [ai-gateway](apps/ai-gateway/README.md) |
+**Current C5 RFID track:** [PN532 V3 MicroPython R1–R8](examples/micropython/pulsar-c5/README.md). The C++/RC522 rows below are historical S3 firmware and are not used by the current web lessons.
+
 | RFID & NFC | [R1 Wire & talk](labs/rfid-lab-r1/README.md) | `rfid-lab-r1` | rfid-lab-kit | none |
 | RFID & NFC | [R2 Wake a card](labs/rfid-lab-r2/README.md) | `rfid-lab-r2` | rfid-lab-kit | none |
 | RFID & NFC | [R3 Who's there](labs/rfid-lab-r3/README.md) | `rfid-lab-r3` | rfid-lab-kit | none |

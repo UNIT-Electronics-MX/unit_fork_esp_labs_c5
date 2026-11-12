@@ -2,7 +2,7 @@
 
 These editable scripts adapt MicroPython topics from the Pulsar C6 guide: GPIO,
 ADC, I²C, NeoPixel, RGB mixing, an external LED circuit, OLED, SPI/microSD,
-UART loopback, Wi-Fi, and Bluetooth LE (including the eight B1–B8 labs). Pin assignments target Pulsar C5
+UART loopback, Wi-Fi, Bluetooth LE (B1–B8), and PN532 I²C RFID/NFC (R1–R8). Pin assignments target Pulsar C5
 V1.2.3 and match the C5 Arduino examples in `unit_fork_esp_c5_labs_web/sketches/pulsar-c5/`.
 
 Install the [ESP32-C5 MicroPython firmware](https://micropython.org/download/ESP32_GENERIC_C5/)
@@ -57,6 +57,15 @@ to run it at startup. Use `Ctrl+C` to stop a running script.
 | `ble_b6_keyboard.py` | Bluetooth LE / B6 Keyboard & media | HID over GATT, US layout, Just Works bond |
 | `ble_b7_midi.py` | Bluetooth LE / B7 Music | Standard BLE-MIDI service; BOOT plays the scale |
 | `ble_b8_host.py` | Bluetooth LE / B8 Host | Central: explore GATT, host a BLE keyboard or mouse |
+| `ics43434_mic.py` | I²S microphone / S1 extension | DevLab ICS-43434 on A2/GPIO4 (SCK), A3/GPIO5 (WS), D4/GPIO9 (SD); custom firmware required |
+| `rfid_r1_pn532.py` | RFID & NFC / R1 | PN532 V3 over QWIIC GPIO1/6; install `pn532.py` first |
+| `rfid_r2_pn532.py` | RFID & NFC / R2 | PN532 V3 over QWIIC GPIO1/6; install `pn532.py` first |
+| `rfid_r3_pn532.py` | RFID & NFC / R3 | PN532 V3 over QWIIC GPIO1/6; install `pn532.py` first |
+| `rfid_r4_pn532.py` | RFID & NFC / R4 | PN532 V3 over QWIIC GPIO1/6; install `pn532.py` first |
+| `rfid_r5_pn532.py` | RFID & NFC / R5 | PN532 V3 over QWIIC GPIO1/6; install `pn532.py` first |
+| `rfid_r6_pn532.py` | RFID & NFC / R6 | PN532 V3 over QWIIC GPIO1/6; install `pn532.py` first |
+| `rfid_r7_pn532.py` | RFID & NFC / R7 | PN532 V3 over QWIIC GPIO1/6; install `pn532.py` first |
+| `rfid_r8_pn532.py` | RFID & NFC / R8 | PN532 V3 over QWIIC GPIO1/6; install `pn532.py` first |
 
 `oled.py` (Display lesson O1) uses only the SSD1306 screen; `oled_light.py` (Sensors lesson D2) additionally needs a TEMT6000 DDP sensor. Both scripts require UNIT's copy of the MicroPython `ssd1306.py` driver. Save
 `libraries/ssd1306.py` as `ssd1306.py` on the board before running either example. The browser workspace includes an **Install ssd1306.py** action.
@@ -95,6 +104,110 @@ if the sensor does not answer. The drivers come from the
 which are MIT licensed. The VCNL4040 driver is a port of Adafruit's library, and
 the MMC5603 and MAX17043/48 drivers are based on upstream projects. Their license
 headers stay in the files.
+
+## DevLab ICS-43434 in the web serial editor
+
+`ics43434_mic.py` reads the **left** I²S slot at 16 kHz and prints one
+`MIC,dBFS,peak16` line about every 100 ms. Open the example in the browser's
+**Firmware & console → Code editor** view; connect Web Serial and press **Run**.
+Speak or clap near the microphone and watch the numbers change. Press **Stop**
+to release I²S. The script does not record, save or upload audio.
+
+With USB disconnected, wire the module's edge pads as follows. Confirm the
+power pin on the released board revision before applying power: the current
+[hardware pinout](https://github.com/UNIT-Electronics-MX/unit_devlab_i2s_ics_43434_mems_microphone/blob/main/hardware/README.md#pinout)
+describes `VSYS` as the 3.3 V system rail, while the full module supply range
+is pending validation.
+
+| DevLab ICS-43434 | Pulsar C5 | Purpose |
+| --- | --- | --- |
+| `VSYS` | `3V3` | 3.3 V system rail |
+| `GND` | `GND` | Common ground |
+| `CH` | `GND` | Select left slot (also the board default) |
+| `SCK` | `A2 / GPIO4` | I²S bit clock |
+| `WS` | `A3 / GPIO5` | I²S word select |
+| `SD` | `D4 / GPIO9` | Audio data into the C5 |
+
+The module's **six-pin JST-SH I²S connector is not the C5's four-pin QWIIC/I²C
+connector**. Do not plug one into the other. Use the edge pads and appropriate
+wires. The microphone's bottom acoustic port must remain unobstructed.
+
+The official `ESP32_GENERIC_C5` MicroPython v1.29.0 image disables
+`machine.I2S` in
+[`mpconfigboard.h`](https://github.com/micropython/micropython/blob/v1.29.0/ports/esp32/boards/ESP32_GENERIC_C5/mpconfigboard.h).
+A C5 build with `MICROPY_PY_MACHINE_I2S` enabled is required. The site's
+firmware view can flash a user-supplied **complete** `.bin` at `0x2000`;
+its bundled generic image is not suitable for this example. Check the board
+first with `import machine; print(hasattr(machine, "I2S"))` in the web terminal.
+The script raises a clear error if the class is absent.
+
+To build a compatible image, follow the official [MicroPython ESP32 build
+guide](https://github.com/micropython/micropython/blob/v1.29.0/ports/esp32/README.md)
+with MicroPython v1.29.0 and ESP-IDF v5.5.2. In
+`ports/esp32/boards/ESP32_GENERIC_C5/mpconfigboard.h`, change
+`MICROPY_PY_MACHINE_I2S (0)` to `(1)` before building:
+
+```sh
+# First install ESP-IDF for esp32c5 and source its export.sh.
+make -C mpy-cross
+cd ports/esp32
+make submodules
+make BOARD=ESP32_GENERIC_C5
+```
+
+The combined image is `ports/esp32/build-ESP32_GENERIC_C5/firmware.bin`.
+Select it as a custom complete `.bin` in the web flasher at `0x2000`, then
+confirm `hasattr(machine, "I2S")` returns `True` in the serial terminal.
+This recipe has not been built or tested on the released mic and Pulsar C5
+combination here. UNIT's published
+[module examples](https://github.com/UNIT-Electronics-MX/unit_devlab_i2s_ics_43434_mems_microphone/tree/main/software/examples/i2s)
+currently target Arduino ESP32-S3, so the C5 MicroPython wiring and script
+still need a physical module test.
+
+## RFID & NFC R1–R8: PN532 V3 over I²C
+
+These are the MicroPython scripts opened by the current C5 web lessons. The older
+`labs/rfid-lab-r1` … `r8` are Arduino/RC522 examples for an ESP32-S3 and remain
+as historical firmware; they are not the code used by these C5 lessons. The
+old `door-app` and `friends-app` expect that older firmware and are not
+compatible with the new R7/R8 scripts. R7 and R8 now offer local serial
+exercises using JSON files on the C5.
+
+With USB unplugged, set the PN532 V3 mode switches to **1 ON, 2 OFF (I²C)**.
+Use its I²C pins labelled SDA and SCL, not the top SPI header. Wire VCC to
+**3V3**, GND to GND, SDA to QWIIC GPIO1, and SCL to QWIIC GPIO6. The C5 QWIIC
+bus has no on-board pull-ups; the PN532 board or wiring must provide them.
+Power-cycle the module after moving its switches. MicroPython's 7-bit I²C
+address is `0x24`; the NXP manual gives `0x48` as the 8-bit write address.
+The PN532 V3 module manual specifies its I²C switch setting and a 3.3–5 V
+module VCC range; this guide uses 3.3 V to match the C5.
+
+Install `libraries/pn532.py` on the C5 as `pn532.py` before running any R script.
+Reinstall it when updating R4 or R5 so the board has the matching driver.
+If you replace the file manually during an active REPL session, run
+`import sys; sys.modules.pop('pn532', None)` or reset the board before retrying.
+The web editor clears the cached module after saving the library. R4 and R5
+also accept the older driver's exchange API for a clearer authentication error.
+The web editor's **Install pn532.py** action reads this exact file from this
+repository. R1 checks the I²C link; R2 detects one card; R3 inventories cards
+one at a time; R4 reads Classic block 4 or Type 2 pages 8–11; R5 writes only
+Classic block 4 or Type 2 page 8 after you set `ARM_WRITE = True`, then reads
+back. Use a disposable tag you own for R5. R6 measures hits at four distances.
+If R4 or R5 reports `PN532 0x14`, the Classic sector 1 authentication failed.
+The examples start with factory Key A (`FF FF FF FF FF FF`); edit `CLASSIC_KEY`
+and `CLASSIC_KEY_TYPE` (`0x60` for A, `0x61` for B) to use a key you know for
+that card, or test with a fresh card that still has its factory key. Hold the
+card still during authentication. The UID alone cannot reveal a sector key.
+R7 stores a simulated door allowlist in `rfid_r7_cards.json`; R8 stores the
+UID-to-character mapping in `rfid_r8_friends.json`. A UID is copyable, so the
+R7 exercise is not suitable for a real door.
+
+Protocol reference: [NXP PN532 user manual](https://www.nxp.com/docs/en/user-guide/141520.pdf),
+§6.2.4 (I²C frames), §7.2.2 (firmware version), §7.3.1 (passive retries),
+§7.3.5 (passive target) and §7.3.8 (data exchange). Board reference:
+[Elechouse PN532 V3 manual](https://www.elechouse.com/elechouse/images/product/PN532_module_V3/PN532_%20Manual_V3.pdf).
+Host protocol tests: `python -m unittest discover -s examples/micropython/pulsar-c5/tests -p 'test_pn532.py'`.
+The driver and scripts have not yet been tested with a physical PN532 V3 and C5.
 
 ## Wi-Fi labs W1–W3
 

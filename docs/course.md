@@ -258,6 +258,8 @@ sequenceDiagram
 
 ## RFID track
 
+The current Pulsar C5 web lessons R1–R8 use the [PN532 V3 I²C MicroPython scripts](../examples/micropython/pulsar-c5/README.md). The PlatformIO/RC522 material below documents the older ESP32-S3 implementation and its apps; it is not the code run by the current C5 track.
+
 Each lab is its own firmware with its own command, like the Wi-Fi labs:
 
 | Lab                | Command                                   | Views              | Adds these serial commands                                                               |
