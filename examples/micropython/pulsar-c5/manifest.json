@@ -714,6 +714,58 @@
         "ESP32-C5 MicroPython firmware built with machine.I2S enabled",
         "ICS-43434 module wired to A2/GPIO4, A3/GPIO5 and D4/GPIO9"
       ]
+    },
+    {
+      "id": "ics43434-j20",
+      "title": "Audio · micrófono I²S en J20",
+      "titleEn": "Audio · I²S microphone on J20",
+      "file": "mic_ics43434_j20.py",
+      "description": "Mide el pico de audio del ICS-43434 conectado directamente a J20.",
+      "descriptionEn": "Measure audio peak from the ICS-43434 connected directly to J20.",
+      "requires": [
+        "Firmware ESP32-C5 MicroPython con machine.I2S habilitado",
+        "ICS-43434 en J20: SCK GPIO27, WS GPIO26, SD GPIO7, CH GPIO10"
+      ],
+      "requiresEn": [
+        "ESP32-C5 MicroPython firmware with machine.I2S enabled",
+        "ICS-43434 on J20: SCK GPIO27, WS GPIO26, SD GPIO7, CH GPIO10"
+      ]
+    },
+    {
+      "id": "ics43434-usb-audio-pads",
+      "title": "Audio · escuchar I²S en la web (A2/A3/D4)",
+      "titleEn": "Audio · listen to I²S in the browser (A2/A3/D4)",
+      "file": "mic_ics43434_usb_pads.py",
+      "description": "Envía PCM mono de 48 kHz con el cableado original A2/A3/D4 para escucharlo en la web.",
+      "descriptionEn": "Stream 48 kHz mono PCM with the original A2/A3/D4 wiring for browser playback.",
+      "requires": [
+        "Firmware ESP32-C5 MicroPython con machine.I2S habilitado",
+        "ICS-43434: SCK A2/GPIO4, WS A3/GPIO5, SD D4/GPIO9, CH a GND",
+        "Navegador con Web Serial"
+      ],
+      "requiresEn": [
+        "ESP32-C5 MicroPython firmware with machine.I2S enabled",
+        "ICS-43434: SCK A2/GPIO4, WS A3/GPIO5, SD D4/GPIO9, CH to GND",
+        "Browser with Web Serial"
+      ]
+    },
+    {
+      "id": "ics43434-usb-audio",
+      "title": "Audio · escuchar I²S en la web (J20)",
+      "titleEn": "Audio · listen to I²S in the browser (J20)",
+      "file": "mic_ics43434_usb_master.py",
+      "description": "Envía PCM mono de 48 kHz por USB Serial/JTAG para escucharlo en la vista web.",
+      "descriptionEn": "Stream 48 kHz mono PCM over USB Serial/JTAG for browser playback.",
+      "requires": [
+        "Firmware ESP32-C5 MicroPython con machine.I2S habilitado",
+        "ICS-43434 en J20: SCK GPIO27, WS GPIO26, SD GPIO7, CH GPIO10",
+        "Navegador con Web Serial"
+      ],
+      "requiresEn": [
+        "ESP32-C5 MicroPython firmware with machine.I2S enabled",
+        "ICS-43434 on J20: SCK GPIO27, WS GPIO26, SD GPIO7, CH GPIO10",
+        "Browser with Web Serial"
+      ]
     }
   ],
   "libraries": [

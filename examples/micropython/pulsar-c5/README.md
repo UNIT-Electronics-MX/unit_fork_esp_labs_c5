@@ -58,6 +58,9 @@ to run it at startup. Use `Ctrl+C` to stop a running script.
 | `ble_b7_midi.py` | Bluetooth LE / B7 Music | Standard BLE-MIDI service; BOOT plays the scale |
 | `ble_b8_host.py` | Bluetooth LE / B8 Host | Central: explore GATT, host a BLE keyboard or mouse |
 | `ics43434_mic.py` | I²S microphone / S1 extension | DevLab ICS-43434 on A2/GPIO4 (SCK), A3/GPIO5 (WS), D4/GPIO9 (SD); custom firmware required |
+| `mic_ics43434_j20.py` | I²S microphone / J20 | ICS-43434 on J20; prints the 24-bit peak level over the web serial console |
+| `mic_ics43434_usb_pads.py` | I²S microphone / web audio | Original A2/GPIO4, A3/GPIO5, D4/GPIO9 edge-pad wiring; streams 48 kHz mono PCM |
+| `mic_ics43434_usb_master.py` | I²S microphone / web audio | ICS-43434 on J20; streams 48 kHz mono PCM for browser listening |
 | `rfid_r1_pn532.py` | RFID & NFC / R1 | PN532 V3 over QWIIC GPIO1/6; install `pn532.py` first |
 | `rfid_r2_pn532.py` | RFID & NFC / R2 | PN532 V3 over QWIIC GPIO1/6; install `pn532.py` first |
 | `rfid_r3_pn532.py` | RFID & NFC / R3 | PN532 V3 over QWIIC GPIO1/6; install `pn532.py` first |
@@ -163,6 +166,25 @@ combination here. UNIT's published
 [module examples](https://github.com/UNIT-Electronics-MX/unit_devlab_i2s_ics_43434_mems_microphone/tree/main/software/examples/i2s)
 currently target Arduino ESP32-S3, so the C5 MicroPython wiring and script
 still need a physical module test.
+
+### Browser listening with either microphone wiring
+
+For the original edge-pad wiring, use `mic_ics43434_usb_pads.py`: SCK=A2/GPIO4,
+WS=A3/GPIO5, SD=D4/GPIO9, CH=GND, VSYS=3V3 and GND=GND. This uses the
+same pins as `ics43434_mic.py`.
+
+For the J20 connection, use `mic_ics43434_j20.py` to see the microphone's
+24-bit peak in the serial console. Its pins are SCK/GPIO27, WS/GPIO26,
+SD/GPIO7 and CH/GPIO10. The companion `mic_ics43434_usb_master.py` sends
+48 kHz, 16-bit mono PCM on the native USB Serial/JTAG port. In the web code
+editor, select the web audio example matching your wiring, connect the port and run the
+script. The listening dialog opens; press **Escuchar** to start audio in the
+browser. **Detener escucha** returns the board to the MicroPython prompt.
+Chrome or Edge needs HTTPS or localhost for Web Serial. The browser receives
+audio locally; it is not saved or uploaded. The signal indicator is based on
+valid PCM frames and audible level, not an electrical identification of the
+microphone. `pc_audio_pulsar.py` remains available for computer audio devices
+and virtual microphone routing outside the browser.
 
 ## RFID & NFC R1–R8: PN532 V3 over I²C
 
