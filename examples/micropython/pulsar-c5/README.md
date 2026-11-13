@@ -57,10 +57,14 @@ to run it at startup. Use `Ctrl+C` to stop a running script.
 | `ble_b6_keyboard.py` | Bluetooth LE / B6 Keyboard & media | HID over GATT, US layout, Just Works bond |
 | `ble_b7_midi.py` | Bluetooth LE / B7 Music | Standard BLE-MIDI service; BOOT plays the scale |
 | `ble_b8_host.py` | Bluetooth LE / B8 Host | Central: explore GATT, host a BLE keyboard or mouse |
-| `ics43434_mic.py` | I²S microphone / S1 extension | DevLab ICS-43434 on A2/GPIO4 (SCK), A3/GPIO5 (WS), D4/GPIO9 (SD); custom firmware required |
 | `mic_ics43434_j20.py` | I²S microphone / J20 | ICS-43434 on J20; prints the 24-bit peak level over the web serial console |
-| `mic_ics43434_usb_pads.py` | I²S microphone / web audio | Original A2/GPIO4, A3/GPIO5, D4/GPIO9 edge-pad wiring; streams 48 kHz mono PCM |
 | `mic_ics43434_usb_master.py` | I²S microphone / web audio | ICS-43434 on J20; streams 48 kHz mono PCM for browser listening |
+| `es8311_melody.py` | ES8311 codec / playback | Short songs with a piano-like melody and a soft bass line; a friendlier first output test; install `es8311.py` first |
+| `es8311_sine_wave.py` | ES8311 codec / playback | 494 Hz tone; I²S on J20 (BCLK GPIO27, WS GPIO26, DIN GPIO10), I²C on QWIIC GPIO1/6; install `es8311.py` first |
+| `es8311_mic_capture.py` | ES8311 codec / microphone | 16 kHz mono capture with frames/s and peak; DOUT on J20 SD/GPIO7; install `es8311.py` first |
+| `es8311_mic_diagnose.py` | ES8311 codec / diagnosis | Chip ID, registers and left/right level at every gain; run it when the microphone is silent |
+| `es8311_mic_usb_audio.py` | ES8311 codec / web audio | 48 kHz mono PCM in the web `RAW`/`AU` format for browser listening; install `es8311.py` first |
+| `es8311_mic_serial_pcm.py` | ES8311 codec / WAV over USB | `DLM1` packets for the codec library's `serial_pcm_to_wav.py`; install `es8311.py` first |
 | `rfid_r1_pn532.py` | RFID & NFC / R1 | PN532 V3 over QWIIC GPIO1/6; install `pn532.py` first |
 | `rfid_r2_pn532.py` | RFID & NFC / R2 | PN532 V3 over QWIIC GPIO1/6; install `pn532.py` first |
 | `rfid_r3_pn532.py` | RFID & NFC / R3 | PN532 V3 over QWIIC GPIO1/6; install `pn532.py` first |
@@ -108,41 +112,22 @@ which are MIT licensed. The VCNL4040 driver is a port of Adafruit's library, and
 the MMC5603 and MAX17043/48 drivers are based on upstream projects. Their license
 headers stay in the files.
 
-## DevLab ICS-43434 in the web serial editor
+## DevLab ICS-43434 on J20
 
-`ics43434_mic.py` reads the **left** I²S slot at 16 kHz and prints one
-`MIC,dBFS,peak16` line about every 100 ms. Open the example in the browser's
-**Firmware & console → Code editor** view; connect Web Serial and press **Run**.
-Speak or clap near the microphone and watch the numbers change. Press **Stop**
-to release I²S. The script does not record, save or upload audio.
-
-With USB disconnected, wire the module's edge pads as follows. Confirm the
-power pin on the released board revision before applying power: the current
-[hardware pinout](https://github.com/UNIT-Electronics-MX/unit_devlab_i2s_ics_43434_mems_microphone/blob/main/hardware/README.md#pinout)
-describes `VSYS` as the 3.3 V system rail, while the full module supply range
-is pending validation.
-
-| DevLab ICS-43434 | Pulsar C5 | Purpose |
-| --- | --- | --- |
-| `VSYS` | `3V3` | 3.3 V system rail |
-| `GND` | `GND` | Common ground |
-| `CH` | `GND` | Select left slot (also the board default) |
-| `SCK` | `A2 / GPIO4` | I²S bit clock |
-| `WS` | `A3 / GPIO5` | I²S word select |
-| `SD` | `D4 / GPIO9` | Audio data into the C5 |
-
-The module's **six-pin JST-SH I²S connector is not the C5's four-pin QWIIC/I²C
-connector**. Do not plug one into the other. Use the edge pads and appropriate
-wires. The microphone's bottom acoustic port must remain unobstructed.
+The ICS-43434 examples use the six-pin J20 connector: pin 1 SCK/GPIO27,
+pin 2 SD/GPIO7, pin 3 WS/GPIO26, pin 4 CH/GPIO10, pin 5 3V3 and pin 6 GND.
+The ICS-43434 module plugs in pin for pin. J20 is **not** the four-pin
+QWIIC/I²C connector; do not plug one into the other. The microphone's bottom
+acoustic port must remain unobstructed.
 
 The official `ESP32_GENERIC_C5` MicroPython v1.29.0 image disables
 `machine.I2S` in
 [`mpconfigboard.h`](https://github.com/micropython/micropython/blob/v1.29.0/ports/esp32/boards/ESP32_GENERIC_C5/mpconfigboard.h).
 A C5 build with `MICROPY_PY_MACHINE_I2S` enabled is required. The site's
 firmware view can flash a user-supplied **complete** `.bin` at `0x2000`;
-its bundled generic image is not suitable for this example. Check the board
+its bundled generic image is not suitable for the I²S audio examples. Check the board
 first with `import machine; print(hasattr(machine, "I2S"))` in the web terminal.
-The script raises a clear error if the class is absent.
+The scripts raise a clear error if the class is absent.
 
 To build a compatible image, follow the official [MicroPython ESP32 build
 guide](https://github.com/micropython/micropython/blob/v1.29.0/ports/esp32/README.md)
@@ -167,17 +152,13 @@ combination here. UNIT's published
 currently target Arduino ESP32-S3, so the C5 MicroPython wiring and script
 still need a physical module test.
 
-### Browser listening with either microphone wiring
-
-For the original edge-pad wiring, use `mic_ics43434_usb_pads.py`: SCK=A2/GPIO4,
-WS=A3/GPIO5, SD=D4/GPIO9, CH=GND, VSYS=3V3 and GND=GND. This uses the
-same pins as `ics43434_mic.py`.
+### Browser listening on J20
 
 For the J20 connection, use `mic_ics43434_j20.py` to see the microphone's
 24-bit peak in the serial console. Its pins are SCK/GPIO27, WS/GPIO26,
 SD/GPIO7 and CH/GPIO10. The companion `mic_ics43434_usb_master.py` sends
 48 kHz, 16-bit mono PCM on the native USB Serial/JTAG port. In the web code
-editor, select the web audio example matching your wiring, connect the port and run the
+editor, select `mic_ics43434_usb_master.py`, connect the port and run the
 script. The listening dialog opens; press **Escuchar** to start audio in the
 browser. **Detener escucha** returns the board to the MicroPython prompt.
 Chrome or Edge needs HTTPS or localhost for Web Serial. The browser receives
@@ -185,6 +166,69 @@ audio locally; it is not saved or uploaded. The signal indicator is based on
 valid PCM frames and audible level, not an electrical identification of the
 microphone. `pc_audio_pulsar.py` remains available for computer audio devices
 and virtual microphone routing outside the browser.
+
+## ES8311 audio codec
+
+`libraries/es8311.py` is a MicroPython port of the UNIT DevLab Arduino codec
+library ([unit_devlab_codec_library](https://github.com/UNIT-Electronics-MX/unit_devlab_codec_library)).
+The register sequence, clock table, volume curve and microphone gain steps come
+from the ES8311 driver in the
+[UNIT DevLab Audio Driver fork](https://github.com/UNIT-Electronics-MX/unit_devlab_fork_arduino_audio_driver).
+Save it on the board as `es8311.py`. It is GPL-3.0, like the Arduino library,
+not MIT like the other files in `libraries/`.
+
+Start with `es8311_melody.py` to check the speaker. The other examples correspond
+to the Arduino sketches `es8311_sine_wave`,
+`es8311_mic_capture` and `es8311_mic_serial_pcm`; `es8311_mic_usb_audio.py`
+adds browser listening. Wire the codec with USB unplugged:
+
+| ES8311 | Pulsar C5 | Purpose |
+| --- | --- | --- |
+| `BCLK` / `SCLK` | J20 pin 1, SCK `GPIO27` | I²S bit clock, also the codec's master clock source |
+| `DOUT` / `ASDOUT` | J20 pin 2, SD `GPIO7` | Audio from the codec to the C5 (microphone) |
+| `LRCK` / `WS` | J20 pin 3, WS `GPIO26` | I²S word select |
+| `DIN` / `DSDIN` | J20 pin 4, CH `GPIO10` | Audio from the C5 to the codec (playback) |
+| `3V3`, `GND` | J20 pins 5, 6 | Power |
+| `SDA` | QWIIC `GPIO1` | I²C control (address `0x18`) |
+| `SCL` | QWIIC `GPIO6` | I²C clock |
+
+Microphone: the module has no microphone of its own. Connect an analog
+microphone to **J2** (pin 1 = MIC1P, pin 2 = MIC1N) or use the 3.5 mm jack J3,
+whose microphone contact is also MIC1P. The board has resistors and capacitors
+for an input and bias network, but the product reference does not state which
+microphones it supports or the polarity of J2. Check both against your
+microphone. If the level stays near zero, run `es8311_mic_diagnose.py`.
+
+The pins are constants at the top of each script. MCLK is not wired: the codec
+derives its 256 × fs clock from BCLK. If your firmware's `machine.I2S` accepts
+`mck=`, set `MCLK_PIN` to clock it from MCLK, like the Arduino library. The default
+microphone gain is 24 dB (`INPUT_GAIN = 0.6`). The C5 has
+one I²S peripheral and MicroPython opens it for TX or RX, so play and capture
+one at a time. These examples need the same
+I²S-enabled C5 firmware as the ICS-43434 examples. The MP3 examples of the Arduino library are not ported because
+MicroPython has no Helix decoder.
+
+```python
+import es8311
+
+audio = es8311.ES8311Audio(sda=2, scl=3, mclk=10, bclk=27, ws=7,
+                           data_out=26, data_in=1)
+audio.begin_tx(rate=44100, volume=0.7)   # then audio.write(stereo PCM16)
+audio.end()
+audio.begin_rx(rate=16000, gain=0.6)     # then audio.read_mono(array("h", ...))
+audio.end()
+```
+
+To record a WAV file, save `es8311_mic_serial_pcm.py` as `main.py`, close the
+web console and run the receiver from the codec library directory:
+
+```sh
+python3 extras/serial_pcm_to_wav.py /dev/ttyACM0 microphone.wav --seconds 10
+```
+
+The driver was tested on the host with a simulated I²C bus
+(`tests/test_es8311.py`). The pin assignment and audio still need a test on a
+physical Pulsar C5 and ES8311 module.
 
 ## RFID & NFC R1–R8: PN532 V3 over I²C
 

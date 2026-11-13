@@ -3,3 +3,6 @@
 .venv/
 # Local overrides (serial port, etc.)
 .env
+
+__pycache__/
+*.pyc

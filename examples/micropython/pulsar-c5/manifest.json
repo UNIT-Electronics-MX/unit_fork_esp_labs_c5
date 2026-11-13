@@ -700,22 +700,6 @@
       ]
     },
     {
-      "id": "ics43434-mic",
-      "title": "Audio · micrófono ICS-43434 por I²S",
-      "titleEn": "Audio · ICS-43434 I²S microphone",
-      "file": "ics43434_mic.py",
-      "description": "Mide dBFS y pico desde el micrófono DevLab y los envía a la consola serial web.",
-      "descriptionEn": "Measure dBFS and peak from the DevLab microphone in the web serial console.",
-      "requires": [
-        "Firmware ESP32-C5 MicroPython compilado con machine.I2S habilitado",
-        "Módulo ICS-43434 conectado a A2/GPIO4, A3/GPIO5 y D4/GPIO9"
-      ],
-      "requiresEn": [
-        "ESP32-C5 MicroPython firmware built with machine.I2S enabled",
-        "ICS-43434 module wired to A2/GPIO4, A3/GPIO5 and D4/GPIO9"
-      ]
-    },
-    {
       "id": "ics43434-j20",
       "title": "Audio · micrófono I²S en J20",
       "titleEn": "Audio · I²S microphone on J20",
@@ -729,24 +713,6 @@
       "requiresEn": [
         "ESP32-C5 MicroPython firmware with machine.I2S enabled",
         "ICS-43434 on J20: SCK GPIO27, WS GPIO26, SD GPIO7, CH GPIO10"
-      ]
-    },
-    {
-      "id": "ics43434-usb-audio-pads",
-      "title": "Audio · escuchar I²S en la web (A2/A3/D4)",
-      "titleEn": "Audio · listen to I²S in the browser (A2/A3/D4)",
-      "file": "mic_ics43434_usb_pads.py",
-      "description": "Envía PCM mono de 48 kHz con el cableado original A2/A3/D4 para escucharlo en la web.",
-      "descriptionEn": "Stream 48 kHz mono PCM with the original A2/A3/D4 wiring for browser playback.",
-      "requires": [
-        "Firmware ESP32-C5 MicroPython con machine.I2S habilitado",
-        "ICS-43434: SCK A2/GPIO4, WS A3/GPIO5, SD D4/GPIO9, CH a GND",
-        "Navegador con Web Serial"
-      ],
-      "requiresEn": [
-        "ESP32-C5 MicroPython firmware with machine.I2S enabled",
-        "ICS-43434: SCK A2/GPIO4, WS A3/GPIO5, SD D4/GPIO9, CH to GND",
-        "Browser with Web Serial"
       ]
     },
     {
@@ -765,6 +731,124 @@
         "ESP32-C5 MicroPython firmware with machine.I2S enabled",
         "ICS-43434 on J20: SCK GPIO27, WS GPIO26, SD GPIO7, CH GPIO10",
         "Browser with Web Serial"
+      ]
+    },
+    {
+      "id": "es8311-melody",
+      "title": "Audio · códec ES8311 · prueba musical",
+      "titleEn": "Audio · ES8311 codec · melody test",
+      "file": "es8311_melody.py",
+      "description": "Toca un arpegio, «Estrellita» y el «Himno a la alegría» a dos voces: melodía tipo piano y bajo suave.",
+      "descriptionEn": "Play an arpeggio, “Twinkle, Twinkle” and the “Ode to Joy” in two voices: piano-like melody and soft bass.",
+      "requires": [
+        "Firmware ESP32-C5 MicroPython con machine.I2S habilitado",
+        "es8311.py guardado en la placa",
+        "ES8311 en J20: BCLK GPIO27, WS GPIO26, DOUT GPIO7, DIN GPIO10; I²C en QWIIC GPIO1/6",
+        "Bocina o audífonos en la salida del códec"
+      ],
+      "requiresEn": [
+        "ESP32-C5 MicroPython firmware with machine.I2S enabled",
+        "es8311.py saved on the board",
+        "ES8311 on J20: BCLK GPIO27, WS GPIO26, DOUT GPIO7, DIN GPIO10; I²C on QWIIC GPIO1/6",
+        "Speaker or headphones on the codec output"
+      ]
+    },
+    {
+      "id": "es8311-sine-wave",
+      "title": "Audio · códec ES8311 · tono de prueba",
+      "titleEn": "Audio · ES8311 codec · test tone",
+      "file": "es8311_sine_wave.py",
+      "description": "Reproduce un tono de 494 Hz por el códec y muestra el estado I²C y los registros.",
+      "descriptionEn": "Play a 494 Hz tone through the codec and show the I²C status and registers.",
+      "requires": [
+        "Firmware ESP32-C5 MicroPython con machine.I2S habilitado",
+        "es8311.py guardado en la placa",
+        "ES8311 en J20: BCLK GPIO27, WS GPIO26, DOUT GPIO7, DIN GPIO10; I²C en QWIIC GPIO1/6",
+        "Bocina o audífonos en la salida del códec"
+      ],
+      "requiresEn": [
+        "ESP32-C5 MicroPython firmware with machine.I2S enabled",
+        "es8311.py saved on the board",
+        "ES8311 on J20: BCLK GPIO27, WS GPIO26, DOUT GPIO7, DIN GPIO10; I²C on QWIIC GPIO1/6",
+        "Speaker or headphones on the codec output"
+      ]
+    },
+    {
+      "id": "es8311-mic-capture",
+      "title": "Audio · códec ES8311 · micrófono",
+      "titleEn": "Audio · ES8311 codec · microphone",
+      "file": "es8311_mic_capture.py",
+      "description": "Captura PCM mono de 16 kHz y muestra cuadros por segundo y nivel pico.",
+      "descriptionEn": "Capture 16 kHz mono PCM and show frames per second and peak level.",
+      "requires": [
+        "Firmware ESP32-C5 MicroPython con machine.I2S habilitado",
+        "es8311.py guardado en la placa",
+        "ES8311 en J20: BCLK GPIO27, WS GPIO26, DOUT GPIO7; I²C en QWIIC GPIO1/6"
+      ],
+      "requiresEn": [
+        "ESP32-C5 MicroPython firmware with machine.I2S enabled",
+        "es8311.py saved on the board",
+        "ES8311 on J20: BCLK GPIO27, WS GPIO26, DOUT GPIO7; I²C on QWIIC GPIO1/6"
+      ]
+    },
+    {
+      "id": "es8311-mic-diagnose",
+      "title": "Audio · códec ES8311 · diagnóstico del micrófono",
+      "titleEn": "Audio · ES8311 codec · microphone diagnosis",
+      "file": "es8311_mic_diagnose.py",
+      "description": "Muestra el ID del chip, los registros y el nivel de cada canal I²S con cada ganancia para encontrar por qué el micrófono está en silencio.",
+      "descriptionEn": "Print the chip ID, registers and each I²S channel's level at every gain to find why the microphone is silent.",
+      "requires": [
+        "Firmware ESP32-C5 MicroPython con machine.I2S habilitado",
+        "es8311.py guardado en la placa",
+        "ES8311 en J20: BCLK GPIO27, WS GPIO26, DOUT GPIO7; I²C en QWIIC GPIO1/6",
+        "Haz ruido cerca del micrófono durante la prueba"
+      ],
+      "requiresEn": [
+        "ESP32-C5 MicroPython firmware with machine.I2S enabled",
+        "es8311.py saved on the board",
+        "ES8311 on J20: BCLK GPIO27, WS GPIO26, DOUT GPIO7; I²C on QWIIC GPIO1/6",
+        "Make noise near the microphone during the test"
+      ]
+    },
+    {
+      "id": "es8311-mic-usb-audio",
+      "title": "Audio · códec ES8311 · escuchar en la web",
+      "titleEn": "Audio · ES8311 codec · listen in the browser",
+      "file": "es8311_mic_usb_audio.py",
+      "description": "Envía PCM mono de 48 kHz del códec por USB Serial/JTAG para escucharlo en la vista web.",
+      "descriptionEn": "Stream the codec's 48 kHz mono PCM over USB Serial/JTAG for browser playback.",
+      "requires": [
+        "Firmware ESP32-C5 MicroPython con machine.I2S habilitado",
+        "es8311.py guardado en la placa",
+        "ES8311 en J20: BCLK GPIO27, WS GPIO26, DOUT GPIO7; I²C en QWIIC GPIO1/6",
+        "Navegador con Web Serial"
+      ],
+      "requiresEn": [
+        "ESP32-C5 MicroPython firmware with machine.I2S enabled",
+        "es8311.py saved on the board",
+        "ES8311 on J20: BCLK GPIO27, WS GPIO26, DOUT GPIO7; I²C on QWIIC GPIO1/6",
+        "Browser with Web Serial"
+      ]
+    },
+    {
+      "id": "es8311-mic-serial-pcm",
+      "title": "Audio · códec ES8311 · grabar WAV por USB",
+      "titleEn": "Audio · ES8311 codec · record WAV over USB",
+      "file": "es8311_mic_serial_pcm.py",
+      "description": "Envía paquetes PCM DLM1 para grabarlos como WAV con serial_pcm_to_wav.py.",
+      "descriptionEn": "Send DLM1 PCM packets to record a WAV file with serial_pcm_to_wav.py.",
+      "requires": [
+        "Firmware ESP32-C5 MicroPython con machine.I2S habilitado",
+        "es8311.py guardado en la placa",
+        "ES8311 en J20: BCLK GPIO27, WS GPIO26, DOUT GPIO7; I²C en QWIIC GPIO1/6",
+        "Guardar como main.py y cerrar la consola web antes del receptor"
+      ],
+      "requiresEn": [
+        "ESP32-C5 MicroPython firmware with machine.I2S enabled",
+        "es8311.py saved on the board",
+        "ES8311 on J20: BCLK GPIO27, WS GPIO26, DOUT GPIO7; I²C on QWIIC GPIO1/6",
+        "Save as main.py and close the web console before the receiver"
       ]
     }
   ],
@@ -889,6 +973,20 @@
         "rfid-r6-pn532",
         "rfid-r7-pn532",
         "rfid-r8-pn532"
+      ]
+    },
+    {
+      "id": "es8311",
+      "file": "es8311.py",
+      "source": "https://github.com/UNIT-Electronics-MX/unit_fork_esp_labs_c5/blob/main/examples/micropython/pulsar-c5/libraries/es8311.py",
+      "license": "GPL-3.0",
+      "examples": [
+        "es8311-melody",
+        "es8311-sine-wave",
+        "es8311-mic-capture",
+        "es8311-mic-diagnose",
+        "es8311-mic-usb-audio",
+        "es8311-mic-serial-pcm"
       ]
     }
   ]
