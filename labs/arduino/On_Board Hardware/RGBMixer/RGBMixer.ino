@@ -13,7 +13,7 @@
 
 DevLab_UANIMA strip(NUMPIXELS, RGB_PIN);
 
-int level = 40;                 // brightness 0-255 
+int level = 40;                 // brightness 0-255
 int red = 0, green = 0, blue = 0;  // current colour
 
 
@@ -42,7 +42,7 @@ void loop() {
   line.trim();
   line.toLowerCase();
 
- 
+
   // n = how many items were read (the same as len(parts)).
   char command[8] = "";
   int a = 0, b = 0, c = 0;

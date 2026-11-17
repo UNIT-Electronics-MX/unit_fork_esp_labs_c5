@@ -25,7 +25,7 @@ uint32_t wheelColor(uint8_t position){
 
 void setup() {
   strip.begin(BRIGHTNESS);
-  
+
 
 }
 
